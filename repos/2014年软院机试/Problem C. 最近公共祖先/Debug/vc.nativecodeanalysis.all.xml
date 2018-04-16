@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>61</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6246</DEFECTCODE>
+    <DESCRIPTION>“u”的局部声明遮蔽了外部作用域中具有相同名称的声明。有关其他信息，请参见此前位于“47”行(“e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\源.cpp”中)的声明。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+        <FILENAME>源.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>61</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>6246</DEFECTCODE>
+    <DESCRIPTION>“v”的局部声明遮蔽了外部作用域中具有相同名称的声明。有关其他信息，请参见此前位于“47”行(“e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\源.cpp”中)的声明。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+        <FILENAME>源.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>44</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>返回值被忽略: “scanf”。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>49</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>返回值被忽略: “scanf”。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>57</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>返回值被忽略: “scanf”。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>e:\vs2017\repos\2014年软院机试\problem c. 最近公共祖先\</FILEPATH>
+      <FILENAME>源.cpp</FILENAME>
+      <LINE>62</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>返回值被忽略: “scanf”。</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

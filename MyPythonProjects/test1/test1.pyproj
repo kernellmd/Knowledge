@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84e5296d-b781-4810-ba46-10b12be73eed</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>变量作用域.py</StartupFile>
+    <StartupFile>test_github.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -45,6 +45,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="string.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_github.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test_zip.py">
