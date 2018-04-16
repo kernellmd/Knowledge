@@ -1,3 +1,3 @@
 # MyProjects
 my first repository
-a remote repository
+the first remote repository
