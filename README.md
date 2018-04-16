@@ -1,4 +1,3 @@
 # MyProjects
 my first repository
-a rem+
-remoto repository
+a remote repository
