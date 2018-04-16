@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84e5296d-b781-4810-ba46-10b12be73eed</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_github.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,6 +35,9 @@
     <Compile Include="iterator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="newtest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="programming basics.py">
       <SubType>Code</SubType>
     </Compile>
@@ -45,9 +49,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="string.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="test_github.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test_zip.py">
