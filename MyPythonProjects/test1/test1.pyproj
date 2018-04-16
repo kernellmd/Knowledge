@@ -35,9 +35,6 @@
     <Compile Include="iterator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="newtest.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="programming basics.py">
       <SubType>Code</SubType>
     </Compile>
