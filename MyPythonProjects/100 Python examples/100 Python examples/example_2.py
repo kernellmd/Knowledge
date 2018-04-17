@@ -12,26 +12,42 @@
           <= 1000000  1.5%
           超过1000000  1%   
 '''
+#原始程序
+#bonus_100000 = 100000 * 0.1
+#bonus_200000 = bonus_100000 + 100000 * 0.075
+#bonus_400000 = bonus_200000 + 200000 * 0.05
+#bonus_600000 = bonus_400000 + 200000 * 0.03
+#bonus_1000000 = bonus_600000 + 400000 * 0.015
 
-bonus_100000 = 100000 * 0.1
-bonus_200000 = bonus_100000 + 100000 * 0.075
-bonus_400000 = bonus_200000 + 200000 * 0.05
-bonus_600000 = bonus_400000 + 200000 * 0.03
-bonus_1000000 = bonus_600000 + 400000 * 0.015
+#I = int(input("请输入净利润："))
 
-I = int(input())
+#if I <= 100000:
+#    bonus = I * 0.1
+#elif I <= 200000:
+#    bonus = bonus_100000 + (I - 100000) * 0.075
+#elif I <= 400000:
+#    bonus = bonus_200000 + (I - 200000) * 0.05
+#elif I <= 600000:
+#    bonus = bonus_400000 + (I - 400000) * 0.03
+#elif I <= 1000000:
+#    bonus = bonus_600000 + (I - 600000) * 0.015
+#else:
+#    bonus = bonus_1000000 + (I - 1000000) * 0.01
 
-if I <= 100000:
-    bonus = I * 0.1
-elif I <= 200000:
-    bonus = bonus_100000 + (I - 100000) * 0.075
-elif I <= 400000:
-    bonus = bonus_200000 + (I - 200000) * 0.05
-elif I <= 600000:
-    bonus = bonus_400000 + (I - 400000) * 0.03
-elif I <= 1000000:
-    bonus = bonus_600000 + (I - 600000) * 0.015
-else:
-    bonus = bonus_1000000 + (I - 1000000) * 0.01
+#print(bonus)
 
-print(bonus)
+#改进1
+i = int(input('净利润：'))
+#py3中raw_input已经改为input
+#这里经过试验用input也是可以的，另外，input中的中文提示如果
+#不加处理会出现乱码，所以需要加raw_input(u'中文'.encode('gbk'))
+#中文CMD编码默认是GB2312
+arr = [1000000,600000,400000,200000,100000,0]
+rat = [0.01,0.015,0.03,0.05,0.075,0.1]
+r = 0
+for idx in range(0,6): #用来索引arr和rat中的值
+    if i>arr[idx]:#arr[0]=1000000
+    	r+=(i-arr[idx])*rat[idx]
+    	#print (i-arr[idx])*rat[idx]
+    	i=arr[idx]
+print(r)
