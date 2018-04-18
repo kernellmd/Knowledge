@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84e5296d-b781-4810-ba46-10b12be73eed</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>test_main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -46,6 +45,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="string.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test_zip.py">
