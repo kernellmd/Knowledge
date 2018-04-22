@@ -28,7 +28,10 @@ as;ldkfj;asjdf;
 			sleep(1)
 			print(x)
 		
-2. this is list2
+2. this is list2 `printf()`
+`for x in range(10):
+    print(x)`
+this is `<bland>` a example
 
 [click to baidu][0]
 
@@ -39,8 +42,12 @@ as;ldkfj;asjdf;
 [Google]:http://www.google.com
 
 I get 10 times more traffic from [Google][1] than from
-[Yahoo][2] or [MSN][3].
+[Yahoo][] or [MSN][3].
 
   [1]: http://google.com/        "Google"
-  [2]: http://search.yahoo.com/  "Yahoo Search"
+  [Yahoo]: http://search.yahoo.com/  "Yahoo Search"
   [3]: http://search.msn.com/    "MSN Search"
+
+<https://www.bilibili.com/>
+
+<kernellmd@163.com>
