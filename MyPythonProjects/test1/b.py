@@ -4,6 +4,6 @@ from a import A
 #import a
 print('b', A)
 #print(id(va))
-class A():
-    a = 1
-    b = [a + i for i in range(3)]
+#class A():
+#    a = 1
+#    b = [a + i for i in range(3)]
