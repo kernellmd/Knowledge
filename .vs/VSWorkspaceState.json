@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\images",
-    "\\MyPythonProjects",
-    "\\MyPythonProjects\\test1"
+    "\\MyImages",
+    "\\MyPythonProjects"
   ],
-  "SelectedNode": "\\images\\natural_scenery1.jpg",
+  "SelectedNode": "\\MyImages",
   "PreviewInSolutionExplorer": false
 }
