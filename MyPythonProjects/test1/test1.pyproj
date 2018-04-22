@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84e5296d-b781-4810-ba46-10b12be73eed</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_main.py</StartupFile>
+    <StartupFile>b.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,16 +22,28 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="a.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="b.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="define_function.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="dict.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="dict_import.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="forloop.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="iterator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="assert.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="programming basics.py">
@@ -54,6 +66,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="变量作用域.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="命名空间.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="抽象类.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="文件操作.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="流程控制.py">
