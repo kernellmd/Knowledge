@@ -5,7 +5,7 @@
     <ProjectGuid>84e5296d-b781-4810-ba46-10b12be73eed</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>b.py</StartupFile>
+    <StartupFile>测量程序运行时间.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -81,9 +81,13 @@
     <Compile Include="流程控制.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="测量程序运行时间.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="test_markdown.md" />
+    <Content Include="内存模块.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
