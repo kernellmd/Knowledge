@@ -52,7 +52,7 @@ foo = long_function_name(
 
 other codes
 </code></pre>
->错误写法
+>错误写法   
 >#参数放在第一行而没有使用垂直对齐
 <pre><code>
 foo = long_function_name(var_one, var_two,
@@ -65,5 +65,5 @@ def long_function_name(
     var_four):
     print(var_one)
 </code></pre>
->四个空格缩进不是必须的
+>四个空格缩进不是必须的   
 >#悬挂缩进可以使用更多空格
