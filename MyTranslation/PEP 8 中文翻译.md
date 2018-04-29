@@ -31,7 +31,7 @@ Guido认为：代码被阅读之频繁远甚于其被编写。所以，这里提
 
 ()、[]或者{}可以隐式的续接一行代码，但要注意垂直对齐，也通过悬挂缩进提高可读性。   
 在使用悬挂缩进时，应该注意：第一行不能有参数，续接的行要缩进。
->正确做法：   
+>正确写法：   
 >#与开始的分隔符对齐
 <pre><code>
 foo = long_function_name(var_one, var_two,
@@ -44,3 +44,26 @@ def long_function_name(
         var_four):
     print(var_one)
 </code></pre>
+>#悬挂缩进后应追加一个空行
+<pre><code>
+foo = long_function_name(
+    var_one, var_two,
+    var_three, var_four)
+
+other codes
+</code></pre>
+>错误写法
+>#参数放在第一行而没有使用垂直对齐
+<pre><code>
+foo = long_function_name(var_one, var_two,
+    var_three, var_four)
+</code></pre>
+>#续行部分没有进一步缩进
+<pre><code>
+def long_function_name(
+    var_one, var_two, var_three,
+    var_four):
+    print(var_one)
+</code></pre>
+>四个空格缩进不是必须的
+>#悬挂缩进可以使用更多空格
