@@ -557,3 +557,90 @@ initialize(FILES, error=True,)
 
 **（1）块注释**
 
+块注释一般写在对应代码之前，并且和对应代码有同样的缩进级别。块注释以一个 # 和一个   
+空格打头（除非注释内的文本也有缩进）。
+
+块注释中的段落用以单个 # 字符开头的空行分隔。
+
+**（2）行内注释**
+
+少用行内注释。
+
+行内注释和代码语句写在同一行，至少以两个空格分隔。并且也以一个 # 和一个空格打头。   
+
+行内注释通常不是必要的，在代码含义很明显时甚至会让人分心。不要有以下写法：
+<pre><code>
+x = x + 1                 # Increment x
+</code></pre>
+但有时却是必要的：
+<pre><code>
+x = x + 1                 # Compensate for border
+</code></pre>
+
+**(3)文档字符串**
+
+要写出好的文档字符串（又名“docstrings”），请参阅 PEP 257 。
+
+* 应该为所有的公共模块、函数、类和方法编写文档字符串。文档字符串对于非公共方法不是   
+必须的，但是应该留有注释以说明此方法的用途，此注释要放在`def`语句的下一行。
+
+* PEP 257 有好文档字符串规约。尤其注意，多行文档字符串结尾处的`"""`要单独占一行   
+例如：
+<pre><code>
+"""Return a foobang
+
+Optional plotz says to frobnicate the bizbaz first.
+"""
+</code></pre>
+* 对于单行文档字符串，可以把末尾的`"""`放在同一行。
+
+8、命名规约
+=====
+Python 库的命名规约有些混乱，所以我们无法就此保持完全一致。但我们当前还是有一些值   
+得推荐的命名规约。书写新的模块和包（包括第三方框架）时，应当遵循这些标准。但是如果   
+现有的库遵循了不同的代码风格，那么应该保持内部代码的一致性。
+
+**（1）首要原则**
+
+对用户可见的公共部分 API ，其名称应该反应出其用途而不是实现。
+
+**（2）描述：命名风格**
+
+不同的命名风格有很多，最好能从应用他们的代码而识别出对应命名风格。
+
+注意区别以下命名风格：   
+* b（单个小写字符）
+* B（单个大写字符）
+* lowercase（小写单词）
+* lower_case_with_underscores（下划线连接的小写单词）
+* UPPERCASE（大写单词）
+* UPPER_CASE_WITH_UNDERSCORES（下划线连接的大写单词）
+* CapitalizedWords（也叫做CapWords或CamelCase – 因为单词首字母大写看起来像驼   
+峰而得名）有时也被称为 StudlyCaps 。
+
+  注意：当使用首字母缩略词时，将缩略词的所有字母大写。因此HTTPServerError的写法   
+比HttpServerError更好。
+* mixedCase（和CapitalizedWords的不同之处是最开始的字母要小写！）
+* Capitalized_Words_With_Underscores（真丑！）
+
+还有的命名风格用简短的唯一前缀将相关的名称写在一组。这在 Python 中不常用，但完整   
+起见，这里点出来。例如，`os.stat()`函数会返回一个元组，其中包含`st_mode`，   
+`st_size`，` st_mtime`等名称。这样做是为了强调和 POSIX 系统调用结构之间的关系，   
+让程序员更熟悉。
+
+X11 库中的公共的函数名都以 X 开头。在 Python 中，一般认为这种风格没什么必要，因   
+为属性和方法名都以对象名为前缀，函数名以模块名为前缀。
+
+另外，以下用下划线开始或结尾的特殊形式也是被认可的（与其他规约结合使用）：   
+* _single_leading_underscore：内部使用的弱标识。例如，`from M import *`语句   
+并不会导入以下划线开头的对象。
+* single_trailing_underscore_：以单下划线结尾避免和 Python 关键字冲突。例如：
+<pre><code>
+Tkinter.Toplevel(master, class_='ClassName')
+</code></pre>
+* __double_leading_underscore：以双下划线开头的风格命名类属性时触发命名修饰   
+（在 FooBar 类内部， __boo 命名会被修饰成_Foo__boo；见以下）。
+* __double_leading_and_trailing_underscore__：以双下划线开头和结尾的命名风   
+格表示“魔术”对象或属性，存在于用户控制的命名空间中。例如：`__init__`，   
+`__import__ `或者 `__file__`。除了按文档描述来使用这些命名，不要私自使用。
+
