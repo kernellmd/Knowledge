@@ -851,4 +851,116 @@ X from None”），要确保将相关细节转移到新异常中（比如，将
 
   第二种格式在 Python3 中是不合法的语法。
 
-  带括号的形式也意味着当异常参数很长或者包含格式化字符串时
+  带括号的形式也意味着当异常参数很长或者包含格式化字符串时，你不需要使用续行符，这   
+对亏了括号。
+
+* 捕获异常时，尽可能使用明确的异常，而不是使用一个空的`except:`子句。   
+例如：
+<pre><code>
+try:
+    import platform_specific_module
+except ImportError:
+    platform_specific_module = None
+</code></pre>
+  一个空的`except:`子句将会捕获到 SystemExit和 KeyboardInterrupt 异常，这样就   
+很难使用 Ctrl + C 来中断程序，还会掩盖其他问题。如果你想捕获可以表示程序错误的所   
+有异常，可以使用`except Exception:`(空`except:`等同于`except BaseException:`)。
+
+  经验告诉我们，在以下两种情况中要限制空`except:`子句的使用：   
+1. 异常处理程序想要打印或者记录回溯信息，至少这能使用户意识到有错误发生。
+2. 如果代码需要做一些清理工作，但是随后要用`raise`向上抛出异常。那么`try...finally`   
+可以更好的处理这个问题。
+
+* 当要给异常绑定一个名称时，最好使用 Python 2.6 中加入的明确的名称绑定语法：   
+<pre><code>
+try:
+    process_data()
+except Exception as exc:
+    raise DataProcessingFailedError(str(exc))
+</code></pre>
+这是 Python3 中唯一支持的语法，并且避免了与基于逗号的旧式语法产生二义性问题。
+
+* 在捕获操作系统错误时，首选 Python3.3 中引入的显式异常层次结构，而不是检查   
+`error`值。
+
+* 另外，对于所有的 try/except 子句，应将 try 子句限制为必要的最小的代码量。   
+再者，可以避免掩盖问题。
+>推荐写法：
+<pre><code>
+try:
+    value = collection[key]
+except KeyError:
+    return key_not_found(key)
+else:
+    return handle_value(value)
+</code></pre>
+>不推荐写法：
+<pre><code>
+try:
+    # Too broad!
+    return handle_value(collection[key])
+except KeyError:
+    # Will also catch KeyError raised by handle_value()
+    return key_not_found(key)
+</code></pre>
+* 当某个资源仅被本地的特定代码段使用时，请使用 with 语句以确保资源使用后可以被及   
+时可靠地清理。也可以使用 try/finally 语句。
+
+* 只要不是获取和释放资源而是执行其他操作，上下文管理器都应该通过独立的函数或方法来   
+调用。
+>推荐写法：
+<pre><code>
+with conn.begin_transaction():
+    do_stuff_in_transaction(conn)
+</code></pre>
+>不推荐写法
+<pre><code>
+with conn:
+    do_stuff_in_transaction(conn)
+</code></pre>
+第二个例子没有提供任何信息来表明：除了在事物处理之后关闭连接，\_\_enter\_\_ 和   
+\_\_exit\_\_ 方法会做其他事情。在这种情况下，明确是很重要的。
+
+* 坚持使用 return 语句。函数中的所有 return 语句都应该返回一个表达式或者 None。   
+如果有 return 语句返回了一个表达式，那么，没有返回值的语句都要明确地用`return None`   
+说明。如果可能的话，应该以一条清晰的 return 语句作为函数的结尾。
+>推荐写法：
+<pre><code>
+def foo(x):
+    if x >= 0:
+        return math.sqrt(x)
+    else:
+        return None
+
+def bar(x):
+    if x < 0:
+        return None
+    return math.sqrt(x)
+</code></pre>
+>不推荐写法：
+<pre><code>
+def foo(x):
+    if x >= 0:
+        return math.sqrt(x)
+
+def bar(x):
+    if x < 0:
+        return
+    return math.sqrt(x)
+</code></pre>
+* 用字符串方法代替字符串模块。   
+
+  字符串方法通常要快很多，并且和 Unicode 字符串共享相同的 API。如果需要兼容    
+Python2.0 以下的版本，就需要覆盖此规则。
+
+* 使用`''.startswith()`和`''.endswith()`而不是字符串切片操作来检查前缀和后缀。
+
+  startswith() 和 endswith() 更简洁，且不容易出错，例如：
+  >推荐写法：
+  <pre><code>
+  if foo.startswith('bar'):
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  if foo[:3] == 'bar':
+  </code></pre>
