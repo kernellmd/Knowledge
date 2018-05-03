@@ -379,7 +379,7 @@ import sys
 * 这些二元运算符两边通常保留一个空格：赋值运算符（=），增强的复制运算符（+=，-=等）关系运算符（==，<，>，!=，<=，>=，in，not in，is，is not），布尔运算符（and，or，not）。   
 
 * 如果混用了不同优先级的运算符，可以考虑在低优先级运算符两边增加空格。但不要超过一个，并且要保持二元运算符两边的空格数量相同。   
-  >正确写法
+  >正确写法：
   <pre><code>
   i = i + 1
   submitted += 1
@@ -387,7 +387,7 @@ import sys
   hypot2 = x*x + y*y
   c = (a+b) * (a-b)
   </code></pre>
-  >错误写法
+  >错误写法：
   <pre><code>
   i=i+1
   submitted +=1
@@ -396,40 +396,40 @@ import sys
   c = (a + b) * (a - b)
   </code></pre>
 * 当表示关键字参数或者默认参数时，等号两边不加空格。   
-  >正确写法
+  >正确写法：
   <pre><code>
   def complex(real, imag=0.0):
     return magic(r=real, i=imag)
   </code></pre>
-  >错误写法
+  >错误写法：
   <pre><code>
   def complex(real, imag = 0.0):
     return magic(r = real, i = imag)
   </code></pre>
 * 函数注释中的冒号遵循一般的加空格的规则，如果有箭头，要在其两边加空格。（更多信息请见下面的函数注释。）   
-  >正确写法
+  >正确写法：
   <pre><code>
   def munge(input: AnyStr): ...
   def munge() -> AnyStr: ...
   </code></pre>
-  >错误写法
+  >错误写法：
   <pre><code>
   def munge(input:AnyStr): ...
   def munge()->PosInt: ...
   </code></pre>
 * 当组合使用参数注释和参数默认值时，赋值号两边要加空格（但仅对既有空格又有默认值的参数成立）。   
-  >正确写法
+  >正确写法：
   <pre><code>
   def munge(sep: AnyStr = None): ...
   def munge(input: AnyStr, sep: AnyStr = None, limit=1000): ...
   </code></pre>
-  >错误写法
+  >错误写法：
   <pre><code>
   def munge(input: AnyStr=None): ...
   def munge(input: AnyStr, limit = 1000): ...
   </code></pre>
 * 通常不鼓励使用复合语句（即将多条语句写在一行）。   
-  >正确写法
+  >正确写法：
   <pre><code>
   if foo == 'blah':
     do_blah_thing()
@@ -437,19 +437,19 @@ import sys
   do_two()
   do_three()
   </code></pre>
-  >最好不要这样写
+  >最好不要这样写：
   <pre><code>
   if foo == 'blah': do_blah_thing()
   do_one(); do_two(); do_three()  
   </code></pre>
 * 然而，小型的`if/for/whiel`语句放在一行是可以的。但是有多条分句时不要这样做。也要避免无谓的换行！   
-  >最好不要这样写
+  >最好不要这样写：
   <pre><code>
   if foo == 'blah': do_blah_thing()
   for x in lst: total += x
   while t < 10: t = delay()
   </code></pre>
-  >绝对不要这样写
+  >绝对不要这样写：
   <pre><code>
   if foo == 'blah': do_blah_thing()
   else: do_non_blah_thing()
@@ -466,17 +466,17 @@ import sys
 6、何时在末尾加逗号
 ======
 末尾的逗号通常是可选的。但是，在定义单元素元组时是必须的（而且在 Python2 中，逗号对 print 语句有特殊语义）。清楚起见，建议使用括号括起来（在技术上是冗余的）。   
->正确写法
+>正确写法：
 <pre><code>
 FILES = ('setup.cfg',)
 </code></pre>
->也可以，但是难于理解
+>也可以，但是难于理解：
 <pre><code>
 FILES = 'setup.cfg',
 </code></pre>
 
 当使用版本控制系统时，在将来有可能扩展的值和参数列表或者导入条目的末尾添加冗余的逗号是有好处的。书写模式：每行只写一个值并且加上逗号，在最后的新行写上右括号。但是，把逗号和右括号写在同一行毫无意义（除了上面提到的单元素元组）。   
->正确写法
+>正确写法：
 <pre><code>
 FILES = [
     'setup.cfg',
@@ -486,7 +486,7 @@ initialize(FILES,
            error=True,
            )
 </code></pre>
->错误写法
+>错误写法：
 <pre><code>
 FILES = ['setup.cfg', 'tox.ini',]
 initialize(FILES, error=True,)
