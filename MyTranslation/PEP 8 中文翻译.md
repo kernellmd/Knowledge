@@ -856,12 +856,12 @@ X from None”），要确保将相关细节转移到新异常中（比如，将
 
 * 捕获异常时，尽可能使用明确的异常，而不是使用一个空的`except:`子句。   
 例如：
-<pre><code>
-try:
-    import platform_specific_module
-except ImportError:
-    platform_specific_module = None
-</code></pre>
+  <pre><code>
+  try:
+      import platform_specific_module
+  except ImportError:
+      platform_specific_module = None
+  </code></pre>
   一个空的`except:`子句将会捕获到 SystemExit和 KeyboardInterrupt 异常，这样就   
 很难使用 Ctrl + C 来中断程序，还会掩盖其他问题。如果你想捕获可以表示程序错误的所   
 有异常，可以使用`except Exception:`(空`except:`等同于`except BaseException:`)。
@@ -872,12 +872,12 @@ except ImportError:
 可以更好的处理这个问题。
 
 * 当要给异常绑定一个名称时，最好使用 Python 2.6 中加入的明确的名称绑定语法：   
-<pre><code>
-try:
-    process_data()
-except Exception as exc:
-    raise DataProcessingFailedError(str(exc))
-</code></pre>
+  <pre><code>
+  try:
+      process_data()
+  except Exception as exc:
+      raise DataProcessingFailedError(str(exc))
+  </code></pre>
 这是 Python3 中唯一支持的语法，并且避免了与基于逗号的旧式语法产生二义性问题。
 
 * 在捕获操作系统错误时，首选 Python3.3 中引入的显式异常层次结构，而不是检查   
@@ -885,69 +885,69 @@ except Exception as exc:
 
 * 另外，对于所有的 try/except 子句，应将 try 子句限制为必要的最小的代码量。   
 再者，可以避免掩盖问题。
->推荐写法：
-<pre><code>
-try:
-    value = collection[key]
-except KeyError:
-    return key_not_found(key)
-else:
-    return handle_value(value)
-</code></pre>
->不推荐写法：
-<pre><code>
-try:
-    # Too broad!
-    return handle_value(collection[key])
-except KeyError:
-    # Will also catch KeyError raised by handle_value()
-    return key_not_found(key)
-</code></pre>
+  >推荐写法：
+  <pre><code>
+  try:
+      value = collection[key]
+  except KeyError:
+      return key_not_found(key)
+  else:
+      return handle_value(value)
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  try:
+      # Too broad!
+      return handle_value(collection[key])
+  except KeyError:
+      # Will also catch KeyError raised by handle_value()
+      return key_not_found(key)
+  </code></pre>
 * 当某个资源仅被本地的特定代码段使用时，请使用 with 语句以确保资源使用后可以被及   
 时可靠地清理。也可以使用 try/finally 语句。
 
 * 只要不是获取和释放资源而是执行其他操作，上下文管理器都应该通过独立的函数或方法来   
 调用。
->推荐写法：
-<pre><code>
-with conn.begin_transaction():
-    do_stuff_in_transaction(conn)
-</code></pre>
->不推荐写法
-<pre><code>
-with conn:
-    do_stuff_in_transaction(conn)
-</code></pre>
+  >推荐写法：
+  <pre><code>
+  with conn.begin_transaction():
+      do_stuff_in_transaction(conn)
+  </code></pre>
+  >不推荐写法
+  <pre><code>
+  with conn:
+      do_stuff_in_transaction(conn)
+  </code></pre>
 第二个例子没有提供任何信息来表明：除了在事物处理之后关闭连接，\_\_enter\_\_ 和   
 \_\_exit\_\_ 方法会做其他事情。在这种情况下，明确是很重要的。
 
 * 坚持使用 return 语句。函数中的所有 return 语句都应该返回一个表达式或者 None。   
 如果有 return 语句返回了一个表达式，那么，没有返回值的语句都要明确地用`return None`   
 说明。如果可能的话，应该以一条清晰的 return 语句作为函数的结尾。
->推荐写法：
-<pre><code>
-def foo(x):
-    if x >= 0:
-        return math.sqrt(x)
-    else:
-        return None
+  >推荐写法：
+  <pre><code>
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
+      else:
+          return None
 
-def bar(x):
-    if x < 0:
-        return None
-    return math.sqrt(x)
-</code></pre>
->不推荐写法：
-<pre><code>
-def foo(x):
-    if x >= 0:
-        return math.sqrt(x)
+  def bar(x):
+      if x < 0:
+          return None
+      return math.sqrt(x)
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
 
-def bar(x):
-    if x < 0:
-        return
-    return math.sqrt(x)
-</code></pre>
+  def bar(x):
+      if x < 0:
+          return
+      return math.sqrt(x)
+  </code></pre>
 * 用字符串方法代替字符串模块。   
 
   字符串方法通常要快很多，并且和 Unicode 字符串共享相同的 API。如果需要兼容    
@@ -964,3 +964,129 @@ Python2.0 以下的版本，就需要覆盖此规则。
   <pre><code>
   if foo[:3] == 'bar':
   </code></pre>
+* 对象类型比较应该用 isinstance() 而不是直接比较。
+  >推荐写法：
+  <pre><code>
+  if isinstance(obj, int):
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  if type(obj) is type(1):
+  </code></pre>
+  当检查一个对象是否为字符串时，注意它也可能是一个 Unicode 字符串。在 Python2    
+中，str 和 Unicode 有一个公共的基类即 basestring，所以你可以这样做：
+  <pre><code>
+  if isinstance(obj, basestring):
+  </code></pre>
+  注意，在 Python3 中，`unicode`和`basestring`已经不存在了（只有`str`）。并   
+且`bytes`对象不再是一种字符串（反而是一种整数序列）。
+
+* 对于序列（字符串、列表、元组）来说，空序列的布尔值为 False。
+  >推荐写法：
+  <pre><code>
+  if not seq:
+  if seq:
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  if len(seq):
+  if not len(seq):
+  </code></pre>
+* 书写字符串字面值时，不要依赖尾随的空格。这样的尾随空格在视觉上难以区分，而且一些   
+编辑器会去掉他们（或者，更进一步来说，reindent.py 就会这么做）。
+
+* 不要将布尔量与 True 或 False 用`==`做比较。
+  >推荐写法：
+  <pre><code>
+  if greeting:
+  </code></pre>
+  >不推荐写法
+  <pre><code>
+  if greeting == True:
+  </code></pre>
+  >错误写法：
+  <pre><code>
+  if greeting is True:
+  </code></pre>
+**(1)函数注解**
+
+随着 PEP 484 被正式接受，函数注解的样式规则正在发生变化。
+
+* 为了向前兼容，Python3 代码中的函数注解最好使用 PEP 484 语法。（上一节中有关于   
+注释格式化的一些建议。）
+
+* 建议不再使用在此文档早期版本中描述的试验性质的注解样式。
+
+* 然而，在标准库(stdlib)之外，现在鼓励在 PEP 484 的规则范围内的实验。例如，使用   
+PEP 484样式类型的注解标记大型第三方库或应用程序，评估添加这些注解是否容易，并观察   
+其存在是否增加了代码的可读性。
+
+* Python 标准库要慎用这样的注解，但是，允许用于新编写的代码或者大型的重构。
+
+* 如果想要尝试函数注解的不同的使用方法，建议在文件顶部加入以下形式的注释：
+  <pre><code># type: ignore</code></pre>
+  这会告诉类型检查器忽略所有注解。（在 PEP 484 中可以找到更细致的方法减少类型检查   
+器报错。）
+
+* 像代码检查工具一样，类型检查器也是可选的独立工具。默认情况下，Python 解释器不会   
+因为类型检查而发出任何消息，也不会根据注解来修改行为。
+
+* 不想使用类型检查的用户可以随意忽略他们但是，预计第三方库软件包的用户可能希望在这   
+些软件包上运行类型检查器。为此，PEP 484 建议使用存根文件：.pyi 文件，与相应的   
+ .py 文件相比，类型检查器会优先读取这类文件。存根文件可以与库一起发布，也可以在作   
+者许可的情况下通过 typeshed repo 单独发布。
+
+* 对于需要向后兼容的代码，可以以注释的形式添加类型注解。可参阅 PEP 484 的相关部分。
+
+**（2）变量注解**
+
+PEP 526 引入了变量注解。他们的风格建议与上面介绍的函数注解类似：
+
+* 模块级变量，类和实例变量以及局部变量的注解在冒号后面应该有一个空格。
+
+* 冒号前面不应该有空格。
+
+* 如果赋值号有右值，那么等号两边都应该有一个空格。
+  >推荐写法：
+  <pre><code>
+  code: int
+
+  class Point:
+      coords: Tuple[int, int]
+      label: str = '<unknown>'
+  </code></pre>
+  >不推荐写法：
+  <pre><code>
+  code:int  # No space after colon
+  code : int  # Space before colon
+
+  class Test:
+      result: int=0  # No spaces around equality sign
+  </code></pre>
+* 虽然 PEP 526 已被 Python3.6 所接受，但是对于所有 Python 版本中的存根文件，   
+首选变量注解语法（详见 PEP 484）。
+
+脚注   
+
+    悬挂缩进是一种排版样式，除第一行外，其段落中的所有行都要缩进。在 Python 文   
+    本中，这一术语描述了这样一种样式：对于括号括起来的语句，该行的最后一个非空白字   
+    符是左括号，后续行都要缩进，直到右括号。
+
+10、参考文档
+=======
+| 编号 | 内容  |
+| :-- | :--: |
+| [1] | [PEP 7]，Style Guide for C Code, van Rossum |
+| [2] | Barry's GNU Mailman style guide   http://barry.warsaw.us/software/STYLEGUIDE.txt |
+| [3] | Donald Knuth's The TeXBook, pages 195 and 196.|
+| [4] | http://www.wikipedia.com/wiki/CamelCase |
+| [5] | Typeshed repo    https://github.com/python/typeshed |
+| [6] | Suggested syntax for Python 2.7 and straddling code    https://www.python.org/dev/peps/pep-0484/#suggested-syntax-for-python-2-7-and-straddling-code |
+ 
+[PEP 7]: https://www.python.org/dev/peps/pep-0007/
+
+11、版权
+======
+本文档没有版权限制，公众可随时参阅。
+
+来源：https://github.com/python/peps/blob/master/pep-0008.txt
