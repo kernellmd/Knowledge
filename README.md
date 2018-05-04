@@ -1,2 +1,2 @@
 # MyProjects
-my remote repository.
+A remote repository mainly for private use.
