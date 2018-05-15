@@ -20,6 +20,51 @@
 #管理员数据存放目录，相当于root用户的家目录
 /root
 
+#临时文件存储目录
+/tmp
+
+#usr 表示 unix software source
+/usr
+
+#命令 此目录包含二进制可执行文件
+/bin
+
+#系统命令 此目录中的命令主要供系统管理员使用，以进行系
+统维护，如 iptables，reboot，fdisk等
+/sbin
+
+#挂载目录，系统管理员可用于临时挂载文件系统
+#实际上挂载点对操作没有影响
+/mnt
+
+#包含设备文件，在Linux下，终端设备，usb，磁盘等都被看作
+文件，如/dev/sda
+/dev
+
+#普通用户所有数据存放在该目录下
+/home
+
+#这个目录是一个虚拟的目录，它是系统内存的映射，可以通过
+直接访问这个目录获取系统信息。也就是说，这个目录的内容
+不在硬盘而在内存里
+/proc
+
+#用于存放最基本的动态链接共享库，其作用类似于windows的
+dll文件。几乎所有的应用程序都需要用到这些共享库
+
+#~代表登陆用户的宿主目录
+
+#单独敲“cd”米命令就可进入当前用户宿主目录
+
+#hwclock 查看bios相关的硬件时间，非管理员用户需要提权
+#date  查看系统时间，与bios时间差8小时，可以修改
+
+#help xxx 查看内部命令帮助信息
+#xxx --help 查看外部命令帮助信息
+
+#ll 参数-d可查看文件夹信息，参数-h以人可阅读的方式显示
+
+#cd ../../ 进入父目录的父目录『
 
 #linux系统下“一切皆文件”，目录也是一种文件，
 所以同一目录下不可能存在同名的目录或文件。
@@ -39,6 +84,18 @@ head -n 3 xxx
 #查看文件第5行
 head -n 5 xxx | tail -n 1
 
+#切换终端
+Ubuntu 系统与 CentOS 系统在终端操作上的区别
+Ubuntu 系统切换到字符界面： Ctrl+Alt+Fn（n=1…6）；切换回图形界面： Ctrl+Alt+F7 或 Alt+F7。
+CentOS 系统切换到字符界面： Ctrl+Alt+Fn（n=2…6）；切换回图形界面： Ctrl+Alt+F1 或 Alt+F1
+
+#切换运行级别，注意和切换终端区别
+systemctl isolate multi-user.target #切换到第3运行级别
+或systemctl isolate runlevel3.target
+
+systemctl isolate graphical.target #切换到第5运行级别
+或systemctl isolate runlevel5.target
+
 #搜索文件
 find / -name ipython
 
@@ -46,4 +103,4 @@ find / -name ipython
 pip freeze
 
 #查看软件包安装情况，非常好用
-ptitude
+aptitude
