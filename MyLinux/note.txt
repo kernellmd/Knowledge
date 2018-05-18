@@ -6,6 +6,40 @@ yw 复制一个单词
 y$ 复制到行尾
 w 切换单词
 
+v模式：
+多行注释
+(1)ctrl + v 进入v模式
+(2)向上或向下移动光标
+(3)把需要注释的行的开头标记起来
+(4)然后按大写的I
+(5)在插入注释符，比如#
+(6)在退回到命令模式，即完成注释
+删除多行注释
+前面的步骤相似，上下移动选中之后，
+无需按I，直接输入d
+
+替换
+% 引导全局替换
+5, 10 替换第5到10行 ，具体命令如下：5,10s/xxx/xxx/g 
+
+有关行号
+显示行号 ：set nu
+取消行号 ：set nonu
+
+取消高亮 ：noh 
+
+定位 ：出命令行输入行号，也可以直接输入行号，然后按gg或G
+
+读入文件 ：r 文件路径
+
+打开多个文件 ：vim -o xxx xxx xxx #竖排
+               vim -O xxx xxx xxx #竖排
+多个文件之间切换 ：ctrl + ww
+
+自定义vim
+set nu #显示行号
+set history=10 #保存10条历史命令
+
 在“etc/bin”中的“etc”真正代表的是“etcetera”(附加物)。在
 早期的Unix系统中，最为重要的目录是“bin”目录 (“bin”是
 “binaries”二进制文件――编译后的程序的缩写)，“etc”中则包
@@ -111,6 +145,13 @@ systemctl isolate graphical.target #切换到第5运行级别
 systemtcl get-default #获取当前系统默认的启动级别
 systemtcl set-default xxx #设置默认的启动级别
 
+#iconv 转码命令
+iconv -f 原文件的编码(Windows下是gb2312) 源文件名 -o 输入文件名
+#linux脚本在Windows桌面打开异常，这是因为Windows和linux
+#对回车键处理的不同，linux处理回车"\n"，Windows处理回车"\r\n"
+解决方法一：通过Windows写字板或者MSWord打开
+解决方法二：通过dos2unix包的unix2dos命令打开
+
 #搜索文件
 find / -name ipython
 
@@ -119,3 +160,25 @@ pip freeze
 
 #查看软件包安装情况，非常好用
 aptitude
+
+#进程查看
+pstree 查看进程树 -p 参数显示进程号
+ps -aux 列出目前所有的正在内存中的进程(以BSD格式显示)
+ps -ef 列出目前所有的正在内存中的进程(以标准格式显示)
+ps -aux | head -5
+#结果解释
+USER(运行此进程的用户名)    PID(进程号) %CPU %MEM    VSZ(虚拟内存使用)   RSS(占用的固定内存) TTY(运行终端)      STAT(状态) START(进程被触发运行的时间)   TIME(进程实际使用cpu的时间) COMMAND(由哪个命令所执行)
+#TTY:该进程是在哪个终端上运行，若与终端无关，则显示？，另外tty1-tty6是本机上的登入者程序，若为pts/0等等的，则表示为由网络连接进主机的程序
+#STAT:该进程目前的状态，Linux进程有5种基本状态：
+    R：正在运行或正在运行队列种等待
+    S：该程序目前正在睡眠(sleep)当中，但可被某些讯号唤醒(signal)
+    T: 该程序目前暂停了(ctrl + z)
+    Z：该程序已经终止，但是其子程序却无法正常终止，造成zombie(僵尸)程序的状态
+    D：不可中断状态
+    ctal + c 发送SIGINT信号，终止一个进程
+    ctrl + z 发送SIGSTOP信号，挂起一个进程
+        < 高优先级的
+        N 低优先级的
+        s 包含子进程
+        l 多线程
+        + 前台程序
