@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\MyImages",
-    "\\MyPythonProjects",
-    "\\MyTranslation"
+    "\\repos",
+    "\\repos\\c_code"
   ],
-  "SelectedNode": "\\MyTranslation\\PEP 8 中文翻译.md",
+  "SelectedNode": "\\repos\\c_code\\write_file.c",
   "PreviewInSolutionExplorer": false
 }
