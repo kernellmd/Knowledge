@@ -83,3 +83,8 @@ ls 查看时间
     find ! -type f -a perm -001 #找出当前目录下至少其他人可执行的非普通文件
 
 动作：
+-ls 列出
+-ok 确认
+-exec 执行某命令
+如：find xxx -type f -exec rm {} \;
+#删除xxx目录下的普通文件，注意{}和\之间有空格
