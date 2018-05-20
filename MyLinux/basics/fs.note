@@ -55,3 +55,30 @@
 dll文件。几乎所有的应用程序都需要用到这些共享库
 
 #~代表登陆用户的宿主目录
+
+#文件基本权限
+-    rw-        r--    r--    1 kernellmd kernellmd  1124 5月  20 16:53 vim.note
+类型 拥有者权限 所属组 其他人   拥有者    属组       字节数
+
+对于文件：r 读 w 写 x 执行
+对于目录：r 读(看到目录里面有什么)  ls
+          w 创建、删除、移动目录    touch mkdir rm mv cp
+          x 进入                    cd
+chmod #修改文件权限
+u-w  user     拥有者  #拥有者减去w权限
+g+x  group    组      #所属组增加x权限
+o=r  other    其他人  #其他人的权限设为可读
+#慎用=，会把其他权限都消除掉
+a+x  all      所有人  #所有人都增加x权限
+用户宿主目录下，对应用户拥有绝对权限
+
+ll -d xxx/ #可以查看目录xxx的权限
+-R参数 #递归的修改权限，用于目录(目录下的所有内容全部修改，否则只修改目录)
+chmod u=rwx xxx #一次性修改多个权限
+
+chown #修改文件拥有者和所属组
+chown USER:GROUP xxx #修改拥有者和所属组 
+如：chown kernellmd:kernellmd test.txt #修改test.txt的所属组和拥有者均为kernellmd
+chown USER xxx       #修改拥有者
+chown :GROUP xxx     #修改所属组
+如：chown :sys test.txt #修改test.txt所属组为sys
