@@ -1,3 +1,5 @@
+#note
+
 在“etc/bin”中的“etc”真正代表的是“etcetera”(附加物)。在
 早期的Unix系统中，最为重要的目录是“bin”目录 (“bin”是
 “binaries”二进制文件――编译后的程序的缩写)，“etc”中则包
