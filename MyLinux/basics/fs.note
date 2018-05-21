@@ -107,3 +107,11 @@ SUID #只能设置在二进制可执行程序上，对目录文本设置无效
      #功能：程序运行时权限从执行者变成程序所有者
 如：chmod u+s /usr/bin/less #可以使用less正常查看/etc/passwd的内容
 #以上命令等同于：chmod 4755 /usr/bin/less
+SGID #即可设置二进制可执行程序，也可以设置目录
+     #在设置了SGID权限的目录下建立文件时，新创建的文件的所属组会继承上级目录的所属组(-R参数只针对已创建过的文件)
+chmod g+s xxx/  #xxx/目录拥有sgid权限
+Stickybit  #只作用于目录
+           #目录下所创建的文件只有root、文件创建者、目录所有者才能删除
+chmod 777 xxx/
+chmod o+t xxx/  #xxx/目录拥有t权限
+或者 chmod 1777 xxx/ 也可以
