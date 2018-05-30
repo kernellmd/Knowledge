@@ -1,0 +1,48 @@
+{
+	{
+		"server": "138.128.219.145",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 11418,
+		"password": "s8cRmN",
+		"method": "aes-256-cfb",
+		"obfs": "tls1.2_ticket_auth",
+		"obfs_param": "amazon.cn",
+		"protocol": "auth_sha1_v4",
+		"protocol_param": ""
+	}
+
+    {
+		"server": "65.49.134.166",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 27694,
+		"password": "RNfs3V",
+		"method": "rc4-md5",
+		"obfs": "plain",
+		"obfs_param": "",
+		"protocol": "origin",
+		"protocol_param": ""
+    
+    }
+
+    {
+		"server": "74.207.244.238",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 11205,
+		"password": "ROjbZC",
+		"method": "chacha20-ietf",
+		"obfs": "http_simple",
+		"obfs_param": "jd.hk",
+		"protocol": "auth_aes128_md5",
+		"protocol_param": ""
+	}
+
+}
