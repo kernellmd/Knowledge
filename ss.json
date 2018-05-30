@@ -1,0 +1,102 @@
+{
+	{
+		"server": "138.128.219.145",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 11418,
+		"password": "s8cRmN",
+		"method": "aes-256-cfb",
+		"obfs": "tls1.2_ticket_auth",
+		"obfs_param": "amazon.cn",
+		"protocol": "auth_sha1_v4",
+		"protocol_param": ""
+	}
+
+	{
+		"server": "65.49.134.166",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 27694,
+		"password": "RNfs3V",
+		"method": "rc4-md5",
+		"obfs": "plain",
+		"obfs_param": "",
+		"protocol": "origin",
+		"protocol_param": ""
+	}
+
+	{
+		"server": "74.207.244.238",
+		"local_address": "127.0.0.1",
+		"local_port": 1080,
+		"timeout": 300,
+		"workers": 1,
+		"server_port": 11205,
+		"password": "ROjbZC",
+		"method": "chacha20-ietf",
+		"obfs": "http_simple",
+		"obfs_param": "jd.hk",
+		"protocol": "auth_aes128_md5",
+		"protocol_param": ""
+	}
+
+
+	{
+		"服务器": " 138.128.219.145 ",
+		"本地_地址" ": 127.0.0.1 ",
+		"本地 _ 港口",
+		1080年,
+		"超时": 300
+		"工人",
+		1年,
+		"服务器 _ 端口",
+		11418
+		"密码": " s8crmn "
+		"方法": aes-256-融资",
+		" obfs ": " tls1. 2 _ ticket _认证",
+		" obfs _ param ": "亚马逊. Cn ",
+		"协议": "认证_ sha1 _ v4 ",
+		"协议 _ 参数":
+	}
+
+	{
+		"服务器": " 65.49.134.166 ",
+		"本地_地址" ": 127.0.0.1 ",
+		"本地 _ 港口",
+		1080年,
+		"超时": 300
+		"工人",
+		1年,
+		"服务器 _ 端口",
+		27694
+		"密码": " rnfs3v "
+		"方法": " rc4-md5 ",
+		" obfs ": "平原"
+		"obfs _ param":
+		"议定书": 原产地"
+		"协议 _ 参数":
+	}
+
+	{
+		"服务器": " 74.207.244.238 ",
+		"本地_地址" ": 127.0.0.1 ",
+		"本地 _ 港口",
+		1080年,
+		"超时": 300
+		"工人",
+		1年,
+		"服务器 _ 端口",
+		11205
+		"密码": " rojbzc "
+		"方法": " chacha20-局限",
+		" obfs ": " http _简单",
+		"obfs _ param": jd.
+		香港",
+		"协议": "认证_ aes128 _ md5 ",
+		"协议 _ 参数":
+	}
+}
