@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\MyLinux\\shell_scripts",
     "\\MyPythonProjects",
     "\\MyPythonProjects\\MySpider"
   ],
-  "SelectedNode": "\\MyPythonProjects\\MySpider\\spider_framework.py",
+  "SelectedNode": "\\MyPythonProjects\\MySpider\\BeautifulSoupDemo.py",
   "PreviewInSolutionExplorer": false
 }
