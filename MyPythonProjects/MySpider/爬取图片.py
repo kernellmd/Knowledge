@@ -18,10 +18,11 @@ try:
         #文件不存在，则进行爬取
         r = requests.get(url, headers=kv)
         r.raise_for_status()
+        #此处使用with语句可以不用写f.close()语句
         with open(path, 'wb') as f:
             f.write(r.content)
-            f.flush()
-            f.close()
+            #f.flush()
+            #f.close()
             print("文件成功爬取并保存")
     else:
         print("文件已存在")
