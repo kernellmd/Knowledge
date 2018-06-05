@@ -16,8 +16,8 @@ def getHTMLText(url):
         r.encoding = r.apparent_encoding
         return r.text
     except Exception as e:
-        return (type(e), e)
+        return e
 
 if __name__ == "__main__":
-    url = "http://www.baidu.com"
+    url = "htt://www.baidu.com"
     print(getHTMLText(url))
