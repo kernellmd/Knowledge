@@ -15,8 +15,10 @@ def getHTMLText(url):
         r.raise_for_status()  #如果状态不是200，引发HTTPError异常
         r.encoding = r.apparent_encoding
         return r.text
-    except Exception as e:
-        return repr(e)
+    except Exception:
+        #return repr(e)
+        print("爬取失败")
+        raise
 
 if __name__ == "__main__":
     url = "http://www.baidu.com"
