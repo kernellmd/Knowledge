@@ -30,11 +30,12 @@ def fill_univlist(ulist, html):
 #打印ulist信息
 def print_univlist(ulist, num):
     #打印表头
-    print("{:^10}\t{:^15}\t{:^10}\t".format("排名", "学校名称", "总分"))
+    #会产生对齐问题，解决方案如下
+    print("{0:{3}^10}\t{1:{3}^15}\t{2:{3}^10}".format("排名", "学校名称", "总分", chr(12288)))
     for i in range(num):
         u = ulist[i]
         #与表头相一致的字符串表示
-        print("{:^10}\t{:^15}\t{:^10}\t".format(u[0], u[1], u[2]))
+        print("{0:{3}^10}\t{1:{3}^15}\t{2:{3}^10}".format(u[0], u[1], u[2], chr(12288)))
 
 def main():
     uinfo = []
