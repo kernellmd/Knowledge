@@ -18,9 +18,8 @@ def parse_page(ilt, html):
         tlt = re.findall(r'\"raw_title\"\:\".*?\"', html)
         #获取商品价格
         plt = re.findall(r'\"view_price\"\:\"[\d\.]*\"', html)
-
         for i in range(len(plt)):
-            #eval 函数可以去掉字符串的双引号或单引号
+            #eval()函数可以去掉字符串的双引号或单引号
             price = eval(plt[i].split(':')[1])
             title = eval(tlt[i].split(':')[1])
             ilt.append([title, price])

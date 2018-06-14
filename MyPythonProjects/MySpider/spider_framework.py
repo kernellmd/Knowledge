@@ -7,6 +7,7 @@
 ############################  
 
 import requests
+import traceback
 
 def getHTMLText(url):
     #网络连接容易出现异常，需要进行异常处理
@@ -18,8 +19,8 @@ def getHTMLText(url):
     except Exception:
         #return repr(e)
         print("爬取失败")
-        raise
+        traceback.print_exc()
 
 if __name__ == "__main__":
-    url = "http://www.baidu.com"
+    url = "htt://www.baidu.com"
     print(getHTMLText(url))

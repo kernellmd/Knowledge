@@ -1,48 +1,62 @@
-#CrowTaobaoPrice.py
+#CrawBaiduStocksA.py
 import requests
+from bs4 import BeautifulSoup
+import traceback
 import re
 
 def getHTMLText(url):
     try:
-        r = requests.get(url, timeout=30)
+        r = requests.get(url)
         r.raise_for_status()
         r.encoding = r.apparent_encoding
         return r.text
     except:
         return ""
-    
-def parsePage(ilt, html):
-    try:
-        plt = re.findall(r'\"view_price\"\:\"[\d\.]*\"',html)
-        tlt = re.findall(r'\"raw_title\"\:\".*?\"',html)
-        for i in range(len(plt)):
-            price = eval(plt[i].split(':')[1])
-            title = eval(tlt[i].split(':')[1])
-            ilt.append([price , title])
-    except:
-        print("")
 
-def printGoodsList(ilt):
-    tplt = "{:4}\t{:8}\t{:16}"
-    print(tplt.format("序号", "价格", "商品名称"))
-    count = 0
-    for g in ilt:
-        count = count + 1
-        print(tplt.format(count, g[0], g[1]))
-        
-def main():
-    goods = '书包'
-    depth = 3
-    start_url = 'https://s.taobao.com/search?q=' + goods
-    infoList = []
-    for i in range(depth):
+def getStockList(lst, stockURL):
+    html = getHTMLText(stockURL)
+    soup = BeautifulSoup(html, 'html.parser') 
+    a = soup.find_all('a')
+    for i in a:
         try:
-            url = start_url + '&s=' + str(44*i)
-            html = getHTMLText(url)
-            parsePage(infoList, html)
+            href = i.attrs['href']
+            lst.append(re.findall(r"[s][hz]\d{6}", href)[0])
         except:
             continue
-    printGoodsList(infoList)
-    
-main()
 
+def getStockInfo(lst, stockURL, fpath):
+    for stock in lst:
+        url = stockURL + stock + ".html"
+        html = getHTMLText(url)
+        try:
+            if html=="":
+                continue
+            infoDict = {}
+            soup = BeautifulSoup(html, 'html.parser')
+            stockInfo = soup.find('div',attrs={'class':'stock-bets'})
+
+            name = stockInfo.find_all(attrs={'class':'bets-name'})[0]
+            infoDict.update({'股票名称': name.text.split()[0]})
+            
+            keyList = stockInfo.find_all('dt')
+            valueList = stockInfo.find_all('dd')
+            for i in range(len(keyList)):
+                key = keyList[i].text
+                val = valueList[i].text
+                infoDict[key] = val
+            
+            with open(fpath, 'a', encoding='utf-8') as f:
+                f.write( str(infoDict) + '\n' )
+        except:
+            traceback.print_exc()
+            continue
+
+def main():
+    stock_list_url = 'http://quote.eastmoney.com/stocklist.html'
+    stock_info_url = 'https://gupiao.baidu.com/stock/'
+    output_file = 'E:/BaiduStockInfo.txt'
+    slist=[]
+    getStockList(slist, stock_list_url)
+    getStockInfo(slist, stock_info_url, output_file)
+
+main()
