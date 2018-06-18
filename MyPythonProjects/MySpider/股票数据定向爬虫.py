@@ -1,3 +1,5 @@
+#采用requests+beautifulsoup技术路线的爬虫速度不会很快
+
 import requests
 import re
 from bs4 import BeautifulSoup
