@@ -27,7 +27,9 @@ def get_stock_list(lst, stock_url):
             #继续进行下轮查找
             continue
 
+#增加动态显示进度的功能
 def get_stock_info(lst, stock_url, file_path):
+    count = 0
     for stock in lst:
         url = stock_url + stock + ".html"
         html = get_html_text(url)
@@ -55,9 +57,15 @@ def get_stock_info(lst, stock_url, file_path):
             #将相关信息写入文件
             with open(file_path, "a", encoding="utf-8") as f:
                 f.write(str(info_dict) + "\n")
+                count += 1
+                #\r控制不换行打印
+                print('\r当前进度：{:.2f}%'.format(count * 100 / len(lst), end=''))
 
         #为方便调试，需要获取异常信息
         except:
+            count += 1
+            #\r控制不换行打印
+            print('\r当前进度：{:.2f}%'.format(count * 100 / len(lst), end=''))
             traceback.print_exc()
             continue
 

@@ -1,9 +1,36 @@
-from a import A
-#from a import * 改成这样print(id(va))可以正常输出
-#会将a.py执行一遍，但是只导入了A，b.py的命名控件中没有va
-#import a
-print('b', A)
-#print(id(va))
-#class A():
-#    a = 1
-#    b = [a + i for i in range(3)]
+# -*- coding: utf-8 -*-
+import scrapy
+import re
+
+
+class StocksSpider(scrapy.Spider):
+    name = 'stocks'
+    start_urls = ['http://quote.eastmoney.com/stocklist.html']
+
+    def parse(self, response):
+        for href in response.css('a::attr(href)').extract():
+            try:
+                stock = re.findall(r"[s][hz]\d{6}", href)[0]
+                url = 'https://gupiao.baidu.com/stock/' + stock + '.html'
+                yield scrapy.Request(url, callback=self.parse_stock)
+            except:
+                continue
+
+    def parse_stock(self, response):
+        info_dict = {}
+        stock_info = response.css('.stock-bets')
+        name = stock_info.css('.bets-name').extract()[0]
+        key_list = stock_info.css('dt').extract()
+        value_list = stock_info.css('dd').extract()
+        for i in range(len(key_list)):
+            key = re.findall(r'>.*</dt>', key_list[i])[0][1:-5]
+            try:
+                val = re.findall(r'\d+\.?.*</dd>', value_list[i])[0][0:-5]
+            except:
+                val = '--'
+            info_dict[key] = val
+
+        info_dict.update(
+            {'股票名称': re.findall('\s.*\(',name)[0].split()[0] + \
+             re.findall('\>.*\<', name)[0][1:-1]})
+        yield info_dict

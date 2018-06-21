@@ -14,6 +14,8 @@ def getHTMLText(url):
     try:
         r = requests.get(url, timeout=30)
         r.raise_for_status()  #如果状态不是200，引发HTTPError异常
+        #此处解析文档的编码方式要花费大量时间，定向爬虫可以用手工方式，
+        #先获得网站的编码方式，然后直接赋值到enconding属性
         r.encoding = r.apparent_encoding
         return r.text
     except Exception:
@@ -22,5 +24,5 @@ def getHTMLText(url):
         traceback.print_exc()
 
 if __name__ == "__main__":
-    url = "htt://www.baidu.com"
+    url = "http://www.baidu.com"
     print(getHTMLText(url))

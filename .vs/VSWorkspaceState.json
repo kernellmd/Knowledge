@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\MyPythonProjects",
-    "\\MyPythonProjects\\MySpider"
+    "\\MyPythonProjects\\MySpider",
+    "\\MyPythonProjects\\test1"
   ],
-  "SelectedNode": "\\MyPythonProjects\\MySpider\\股票数据定向爬虫.py",
+  "SelectedNode": "\\MyPythonProjects\\test1\\内存模块.txt",
   "PreviewInSolutionExplorer": false
 }

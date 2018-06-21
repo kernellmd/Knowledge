@@ -29,6 +29,9 @@
     <Compile Include="b.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="c.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="define_function.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,9 +45,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="iterator.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="assert.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="programming basics.py">
