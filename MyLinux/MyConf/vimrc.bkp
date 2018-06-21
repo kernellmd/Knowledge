@@ -1,0 +1,134 @@
+" 代码缩进
+""""""""""""""""""""
+set tabstop=4 "设置tab键为4个空格
+set softtabstop=4 "当行之间交错时使用四个空格
+set shiftwidth=4
+set textwidth=79
+"set showmatch
+set list lcs=tab:\|\ 
+"set expandtab
+set autoindent "自动对齐，把当前行的格式自动用到下一行
+set fileformat=unix
+"set ruler  设置右下角状态行
+"set omnifunc=ccomplete  "Complete ctrl+x ctrl+o补全
+
+" 系统剪贴板
+""""""""""""""""""""
+set clipboard=unnamed
+
+""" 修改编码
+""""""""""""""""""""""
+set encoding=utf-8
+
+"" 修改配色
+"""""""""""""""""""""
+colorscheme elflord
+
+"" 显示行号
+"""""""""""""""""""""
+set number
+
+""去掉有关vi一致性模式，避免以前版本的一些bug和局限
+set nocompatible
+
+"" 语法高亮
+"""""""""""""""""""""
+syntax on
+set hlsearch
+let python_highlight_all = 1
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" 括号匹配高亮
+"""""""""""""""""
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 40
+let g:rbpt_loadcmd_toggle = 0
+
+"自动补全括号引号
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+"inoremap { {<CR>}<Esc>O
+autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap ] <c-r>=ClosePair(']')<CR>
+"inoremap } <c-r>=CloseBracket()<CR>
+inoremap " <c-r>=QuoteDelim('"')<CR>
+inoremap ' <c-r>=QuoteDelim("'")<CR>
+
+function ClosePair(char)
+ if getline('.')[col('.') - 1] == a:char
+ return "\<Right>"
+ else
+ return a:char
+ endif
+endf
+
+function CloseBracket()
+ if match(getline(line('.') + 1), '\s*}') < 0
+ return "\<CR>}"
+" return "\<Right>}"
+ else
+ return "\<Esc>j0f}a"
+ endif
+endf
+
+function QuoteDelim(char)
+ let line = getline('.')
+ let col = col('.')
+ if line[col - 2] == "\\"
+ return a:char
+ elseif line[col - 1] == a:char
+ return "\<Right>"
+ else
+ return a:char.a:char."\<Esc>i"
+ endif
+endf
+
+""使用代码补全功能前，打开文件类型检测
+"filetype plugin indent on
+
+"新建python文件自动添加python header
+"auto add pyhton header --start  
+autocmd BufNewFile *.py 0r ~/.vim/vim_template/vim_pyhton_header  
+autocmd BufNewFile *.py ks|call FileName()|'s  
+autocmd BufNewFile *.py ks|call CreatedTime()|'s  
+  
+fun FileName()  
+    if line("$") > 10  
+        let l = 10  "这里是字母L 不是数字1   
+    else  
+        let l = line("$")  
+    endif   
+    exe "1," . l . "g/File Name:.*/s/File Name:.*/File Name: " .expand("%")    
+       "最前面是数字1，这里的File Name: 要和模板中一致  
+endfun   
+  
+fun CreatedTime()  
+    if line("$") > 10  
+        let l = 10  
+    else  
+        let l = line("$")  
+    endif   
+    exe "1," . l . "g/Created Time:.*/s/Created Time:.*/Created Time: " .strftime("%Y-%m-%d %T")   
+        "这里Create Time: 要和模板中一致  
+endfun   
