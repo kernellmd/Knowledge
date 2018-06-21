@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\MyPythonProjects",
+    "\\MyPythonProjects\\MySpider",
+    "\\MyPythonProjects\\test1"
   ],
-  "SelectedNode": "\\MyFrontEnd",
+  "SelectedNode": "\\MyPythonProjects\\test1\\内存模块.txt",
   "PreviewInSolutionExplorer": false
 }

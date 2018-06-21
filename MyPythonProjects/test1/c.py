@@ -17,20 +17,20 @@ class StocksSpider(scrapy.Spider):
                 continue
 
     def parse_stock(self, response):
-        infoDict = {}
-        stockInfo = response.css('.stock-bets')
-        name = stockInfo.css('.bets-name').extract()[0]
-        keyList = stockInfo.css('dt').extract()
-        valueList = stockInfo.css('dd').extract()
-        for i in range(len(keyList)):
-            key = re.findall(r'>.*</dt>', keyList[i])[0][1:-5]
+        info_dict = {}
+        stock_info = response.css('.stock-bets')
+        name = stock_info.css('.bets-name').extract()[0]
+        key_list = stock_info.css('dt').extract()
+        value_list = stock_info.css('dd').extract()
+        for i in range(len(key_list)):
+            key = re.findall(r'>.*</dt>', key_list[i])[0][1:-5]
             try:
-                val = re.findall(r'\d+\.?.*</dd>', valueList[i])[0][0:-5]
+                val = re.findall(r'\d+\.?.*</dd>', value_list[i])[0][0:-5]
             except:
                 val = '--'
-            infoDict[key]=val
+            info_dict[key]=val
 
-        infoDict.update(
+        info_dict.update(
             {'股票名称': re.findall('\s.*\(',name)[0].split()[0] + \
              re.findall('\>.*\<', name)[0][1:-1]})
-        yield infoDict
+        yield info_dict
