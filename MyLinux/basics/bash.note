@@ -12,7 +12,11 @@ alias lm='ls -al'  #设置别名
 type name  #查看指令是内部、外部还是别名
            #type主要针对可执行文件，也可以当做which等“查找指令”的命令使用
 
-$  #钱字符本身也是变量，是目前shell的PID
+#环境变量(注意区别bash的环境变量)，某些书中为全局变量global variables
+#PS1并不是环境变量，但会影响到bash的接口
+#自定义变量，某些书中为局部变量local variables
+
+$  #钱字符本身也是变量(bash的环境变量)，是目前shell的PID
    #可以使用echo $$查看
 
 ?  #问号也是一个特殊变量，代表上一个执行命令的回传值
@@ -20,3 +24,20 @@ $  #钱字符本身也是变量，是目前shell的PID
    #执行无误则回传值为0，否则回传错误代码，一般非0
 
 OSTYPE HOSTTYPE MACHTYPE  #代表主机硬件与核心的变量
+
+export 变量名称  #将自定义变量转变为环境变量
+
+LANG  #主语言的环境
+LC_ALL  #整体语系环境
+locale -a  #列出当前主机保有的语系文件
+
+read  #读取来自键盘输入的变量
+read -[pt] variable  #-p 接提示字符
+                     #-t 接等待的秒数
+
+declare  #列出所有变量的名称和内容
+declare variable  #变量声明语句，有控制参数
+declare -x variable  #设置环境变量
+declare -x variable  #取消环境变量
+         #bash中的变量类型默认为字符串 bash中的数值运算默认最多能达到整数形态，所以1/3结果是0
+
