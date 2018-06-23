@@ -126,9 +126,8 @@ c4="\[\e[34m\]"
 c5="\[\e[35m\]"
 c6="\[\e[36m\]"
 c7="\[\e[37m\]"
-PS1="$c0***** $c1\w $c2*** $c3<\u@\h> $c4***** $c5\! $c6***** $c7\t $c1***\n$c2\$ $c_1";
+PS1="$c0***** $c1\w $c2*** $c3<\u@\h> $c4*****$c5 history:\! command:\# $c6***** $c7\t $c1***\n$c2\$ $c_1";
 #export PS1
-#PS1='klmd$:'
 
 #添加ipythn环境变量，sslocal环境变量
 PATH="$PATH:/home/kernellmd/.local/bin"
@@ -137,3 +136,19 @@ PATH="$PATH:/home/kernellmd/.local/bin"
 #使用github上的saferm.sh文件，实现rm删除文件到回收站
 #saferm.sh放在/bin目录下
 alias rm=saferm.sh
+
+#-A 不列出./和../  -t 以文件的修改时间排序
+alias ll='ls -Alt | less'
+alias cp='cp -i' #复制覆盖时确认
+alias mv='mv -i' #移动覆盖时确认
+
+
+#对history，而不是.bash_history文件进行优化
+# 实时记录历史命令，默认只有在用户退出之后才会统一记录，容易造成多个用户间的相互覆盖。
+export PROMPT_COMMAND="history -a"
+# 记录每条历史命令的执行时间
+export HISTTIMEFORMAT="%Y-%m-%d_%H:%M:%S "
+# 忽略部分常用的历史命令
+export HISTIGNORE="history*:pwd:ls:ll"
+# 忽略重复的历史命令
+export HISTCONTROL="ignoredups"

@@ -57,6 +57,10 @@ ulimit -a  #列出当前用户的使用限制
 //old/new  #替换全部
 
 unalias 别名  #取消对别名
+       #也可以用\ 执行原始命令 比如\rm -i
 
 histort n  #n 数字，列出最近的n条历史命令
         -c  #清除当前shell中的history命令
+#!配合history可以对曾经下达过的指令进行操作
+
+HISTFILESIZE   #可写入到.bash_history中的最多历史命令数
