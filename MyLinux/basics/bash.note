@@ -16,6 +16,9 @@ type name  #查看指令是内部、外部还是别名
 #PS1并不是环境变量，但会影响到bash的接口
 #自定义变量，某些书中为局部变量local variables
 
+'xxxx'  #原生显示xxxx内容
+"xxxx"  #转义显示xxx内容，如${PATH}
+
 $  #钱字符本身也是变量(bash的环境变量)，是目前shell的PID
    #可以使用echo $$查看
 
@@ -41,3 +44,19 @@ declare -x variable  #设置环境变量
 declare -x variable  #取消环境变量
          #bash中的变量类型默认为字符串 bash中的数值运算默认最多能达到整数形态，所以1/3结果是0
 
+var[index]=content  #设置数组
+
+ulimit -a  #列出当前用户的使用限制
+           #0代表没有限制
+
+\#  #代表从前向后尽可能少的删除，后面加正则表达式
+\##  #代表从前向后尽可能多的删除
+     #%反之，从后向前
+
+/old/new  #替换首次出现的旧内容为新内容
+//old/new  #替换全部
+
+unalias 别名  #取消对别名
+
+histort n  #n 数字，列出最近的n条历史命令
+        -c  #清除当前shell中的history命令
