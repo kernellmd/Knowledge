@@ -142,6 +142,11 @@ alias ll='ls -Alt | less'
 alias cp='cp -i' #复制覆盖时确认
 alias mv='mv -i' #移动覆盖时确认
 
+#优化git命令
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+alias gp='git push'
 
 #对history，而不是.bash_history文件进行优化
 # 实时记录历史命令，默认只有在用户退出之后才会统一记录，容易造成多个用户间的相互覆盖。

@@ -62,5 +62,14 @@ unalias 别名  #取消对别名
 histort n  #n 数字，列出最近的n条历史命令
         -c  #清除当前shell中的history命令
 #!配合history可以对曾经下达过的指令进行操作
+!!  #执行上一条执行过的指令
 
 HISTFILESIZE   #可写入到.bash_history中的最多历史命令数
+
+#指令搜索顺序
+指令路径---alias---bash built---$PATH
+type -a ls  #查看ls指令的搜索顺序
+
+/etc/issue  #进入本地终端的提示信息
+/etc/issue.net  #远程访问本地终端的提示信息
+/etc/motd  #使用者登录提示信息
