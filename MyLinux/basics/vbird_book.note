@@ -1,5 +1,0 @@
-#begin
-ctrl + c  #中断当前运行的程序
-ctrl + d  #键盘输入结束（EOF)
-          #也相当于输入exit，按ctrl+d可以执行离开命令行
-shift + pgup/pgdn  #查看上一页/下一页的输出信息
