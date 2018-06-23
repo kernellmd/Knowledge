@@ -1,0 +1,147 @@
+#note
+
+基本知识：
+应用层：
+表示层：ASCII
+会话层：
+
+传输层：防火墙
+网络层：三层交换机和路由器
+
+数据链路层：二层交换机和网卡
+物理层：集线器
+
+环回地址(Loopback Address)
+主条目：127.0.0.1
+地址块127.0.0.0/8被保留作环回通信用。此范围中的地址绝不
+应出现在主机之外，发送至此地址的报文被作为同一虚拟网络
+设备上的入站报文（环回），主要用于检查TCP/IP协议栈是否
+正确运行和本机对本机的链接
+
+tcp三次握手：
+client                                    server
+TCP连接状态      建立过程                TCP连接状态
+SYN_SENT     ----syn  seq=a               SYN_RCVD
+ESTABLISHED    <---syn  seq=b  ack=a+1   
+             --ack=b+1-->                 ESTABLISHED
+tcp四次挥手：无客户端和服务端区别
+
+网络接口类型表示方法：(不同条件下会有不同的表示方法，但不影响相关命令的使用，进行替换即可)
+以太网(ethernet)   eno(7位数字)
+环回口             lo
+光纤网             fddiN
+桥设备             br0
+ADSL宽带借口       ppp  pppN
+隧道               tun0 tun1
+
+网卡相关调试命令：
+查看网卡硬件相关信息：
+mii-tool  #查看网卡物理连接是否正常
+sudo mii-tool enp2s0f1  #查看本地以太网卡
+[sudo] kernellmd 的密码：
+enp2s0f1: negotiated 100baseTx-FD flow-control, link ok
+           #link ok 说明连接正常；no link说明连接不正常
+
+ethtool  #查询网卡相关参数
+ethtool enp2s0f1
+Settings for enp2s0f1:
+	Supported ports: [ TP MII ]
+	Supported link modes:   10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Half 1000baseT/Full
+	Supported pause frame use: No
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Full
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: Yes
+	Advertised FEC modes: Not reported
+	Link partner advertised link modes:  10baseT/Half 10baseT/Full
+	                                     100baseT/Half 100baseT/Full
+	Link partner advertised pause frame use: Symmetric Receive-only
+	Link partner advertised auto-negotiation: Yes
+	Link partner advertised FEC modes: Not reported
+	Speed: 100Mb/s  #传输速率
+	Duplex: Full  #全双工模式
+	Port: MII
+	PHYAD: 0
+	Transceiver: internal
+	Auto-negotiation: on
+Cannot get wake-on-lan settings: Operation not permitted
+	Current message level: 0x00000033 (51)
+			       drv probe ifdown ifup
+	Link detected: yes
+
+配置网络和ip地址：
+systemctl status NetworkManager  #确定NetworkManager服务正常运行
+● NetworkManager.service - Network Manager
+   Loaded: loaded (/lib/systemd/system/NetworkManager.service
+   Active: active (running) since Tue 2018-05-22 08:13:50 CST  #running说明服务正常运行
+     Docs: man:NetworkManager(8)
+ Main PID: 809 (NetworkManager)
+    Tasks: 4 (limit: 4915)
+   CGroup: /system.slice/NetworkManager.service
+           ├─ 809 /usr/sbin/NetworkManager --no-daemon
+           └─6887 /sbin/dhclient -d -q -sf /usr/lib/NetworkMa
+
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:38 kernellmd-X550LC NetworkManager[809]: <info> 
+5月 22 10:31:39 kernellmd-X550LC dhclient[6887]: bound to 192
+
+systemctl restart NetworkManager  #如果看到的不是running状态，需要重启
+systemctl enable NetworkManager  #设置NetworkManager服务开机自动启动
+                           #此服务不开启，无法通过nmtui修改网络配置
+service NetworkManager stop  #停止NetworkManager服务
+service NetworkManager start  #开启NetworkManager服务
+
+配置ip：
+方法一：图形化管理
+nmtui #以图形化的方式修改网络配置，也可以激活修改
+systemctl restart network  #重启网络服务，也可以激活对网络配置的修改
+方法二：修改网卡文件
+vim /etc/network/interfaces
+#BOOTPROTO="dhcp"(动态ip)/"static"(静态ip)/"none"(不指定)
+#ONBOOT="yes"  开启网卡
+#DNSI="DNS主机名"  修改dns服务器ip
+
+vim /etc/hostname  #配置主机名
+vim /etc/hosts  #配置主机名与域名的对应关系
+im /etc/resolv.conf  #dns配置文件，但配置dns时不建议修改此文件(网络重启之后会失效)，而是修改网卡配置文件
+vim /etc/nsswitch.conf  #nsswitch的hosts项域名
+vim /etc/services  #记录端口号和服务的对应关系
+route -n  #查看默认网关，目的地址和子网掩码都是0.0.0.0的网关是默认网关
+内核 IP 路由表
+目标            网关            子网掩码        标志  跃点   引用  使用 接口
+0.0.0.0         192.168.1.1     0.0.0.0         UG    100    0        0 enp2s0f1
+169.254.0.0     0.0.0.0         255.255.0.0     U     1000   0        0 enp2s0f1
+192.168.1.0     0.0.0.0         255.255.255.0   U     100    0        0 enp2s0f1
+nestat -anptu  #查看网络连接状态
+-a --all 
+-n --numeric  #不解析ip地址为域名
+-p --programs  #程序
+-t  #显示tcp连接
+-u  #显示udp连接
+
+ping  #检测连接
+-c 数目  #在发送指定数目的包后停止
+-i 秒数  #设定间隔几秒发送一个网络封包给及其，默认值是每秒一次
+-I 指定网卡借口  #通过哪块网卡发包
+
+安装iptraf包，使用iptraf-ng命令  #检测网络流量，图形化界面
+arping  #查看ip地址是否有冲突，如果返回的mac地址都一样，说明没有占用ip，如果有多个mac地址，说明有占用ip
+
+#抓包操作
+tcpdump port 22 (端口) -c 3(抓包数) -n (不解析ip地址为域名) -S(打印详细的完全信息) -i (指定网口)
+
+sudo apt install wireshark  #安装wireshark命令
+tshark -w output.file -i enpxxxx  #利用enpxxx网卡抓包并写入到output文件中
+tshark -r output.file  #读取抓取数据

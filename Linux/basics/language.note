@@ -1,0 +1,25 @@
+#bash乱码的解决方案
+修改语系为英文语系
+LANG=en_US.utf-8  #临时使用，做这一步修改就可以
+export LC_ALL=en_US.utf8
+LANG只与输出信息相关，若需要更改其他不同的输出信息，要同步更新LC_ALL才行
+
+#^M解决方案
+dos2unix -k 原乱码文件
+
+#编码转换
+[dmtsai@study ~]$ iconv --list
+[dmtsai@study ~]$ iconv -f 原本编码 -t 新编码 filename [-o newfile]
+选项与参数:
+--list :列出 iconv 支持的语系数据
+-f
+:from ,亦即来源之意,后接原本的编码格式;
+-t
+:to ,亦即后来的新编码要是什么格式;
+-o file:如果要保留原本的文件,那么使用 -o 新文件名,可以创建新编码文件。
+范例一:将 /tmp/vitest/vi.big5 转成 utf8 编码吧!
+[dmtsai@study ~]$ cd /tmp/vitest
+[dmtsai@study vitest]$ iconv -f big5 -t utf8 vi.big5 -o vi.utf8
+[dmtsai@study vitest]$ file vi*
+vi.big5: ISO-8859 text, with CRLF line terminators
+vi.utf8: UTF-8 Unicode text, with CRLF line terminators

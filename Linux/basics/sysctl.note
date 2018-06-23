@@ -1,0 +1,18 @@
+#切换终端
+#Ubuntu 18.04
+ctrl + alt + f1 ... f6 分别对应tty1到6
+其中tty1为图形终端
+#一般情况如下
+Ubuntu 系统与 CentOS 系统在终端操作上的区别
+Ubuntu 系统切换到字符界面： Ctrl+Alt+Fn（n=1…6）；切换回图形界面： Ctrl+Alt+F7 或 Alt+F7。
+CentOS 系统切换到字符界面： Ctrl+Alt+Fn（n=2…6）；切换回图形界面： Ctrl+Alt+F1 或 Alt+F1
+
+#切换运行级别，注意和切换终端区别
+systemctl isolate multi-user.target #切换到第3运行级别
+或systemctl isolate runlevel3.target
+
+systemctl isolate graphical.target #切换到第5运行级别
+或systemctl isolate runlevel5.target
+
+systemtcl get-default #获取当前系统默认的启动级别
+systemtcl set-default xxx #设置默认的启动级别
