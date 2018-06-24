@@ -23,3 +23,7 @@ dos2unix -k 原乱码文件
 [dmtsai@study vitest]$ file vi*
 vi.big5: ISO-8859 text, with CRLF line terminators
 vi.utf8: UTF-8 Unicode text, with CRLF line terminators
+
+#误按ctrl+s会锁死程序，可以按ctrl+q恢复
+
+ls -d /etc/[^a-z]*  #会略去所有以字母开头的文件，不区分大小写
