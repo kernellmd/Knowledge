@@ -27,3 +27,4 @@ vi.utf8: UTF-8 Unicode text, with CRLF line terminators
 #误按ctrl+s会锁死程序，可以按ctrl+q恢复
 
 ls -d /etc/[^a-z]*  #会略去所有以字母开头的文件，不区分大小写
+LANG=C;ls -d /etc/[^a-z]*  #因为语系对正则表达是有影响，所以改为ascii(LANG=C)
