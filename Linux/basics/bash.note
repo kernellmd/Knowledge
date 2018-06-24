@@ -73,3 +73,7 @@ type -a ls  #查看ls指令的搜索顺序
 /etc/issue  #进入本地终端的提示信息
 /etc/issue.net  #远程访问本地终端的提示信息
 /etc/motd  #使用者登录提示信息
+
+login shell  #取得bash需要完整登录流程，如tty1-6
+             #
+nologin shell  #取得bash不需要完整的登录流程，如X-Windows环境
