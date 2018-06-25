@@ -1,5 +1,5 @@
 # (put your own initials here)echo the reminder to the console every
-#everyhour
-0,20,40 * * * * /bin/echo "Take A Rest Please! Pay attention to your Eyes and Neck!" > /dev/pts/0
+#every 20 minutes 
+*/20 * * * * /bin/echo "Take A Rest Please! Pay attention to your Eyes and Neck!" > /dev/pts/0
 # between 22:30pm and 23pm
 30,40,50,55,57,58,59 22-23 * * * /bin/echo 'Time is coming! Please shutdown!' > /dev/pts/0

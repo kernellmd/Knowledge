@@ -16,3 +16,9 @@ cmd1 && cmd2 || cmd3  #cmd1成功则执行cmd2，否则执行cmd3
 
 tee  #同时想标准输出和文件重定向，配合管道命令可以做多向的重定向
 tee -a  #tee命令默认向文件写，-a参数是追加
+
+#將 /etc/passwd 內的第一欄取出，僅取三行，使用 id 這個指令將每個帳號內容秀出來
+cut -d ':' -f 1 /etc/passwd | head -n 3 | xargs -n 1 id
+# 透過 -n 來處理，一次給予一個參數
+
+# 很多指令其實並不支援管線命令，因此我們可以透過 xargs 來提供該指令引用 standard input
