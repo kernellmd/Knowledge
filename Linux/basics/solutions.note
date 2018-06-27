@@ -28,3 +28,6 @@ vi.utf8: UTF-8 Unicode text, with CRLF line terminators
 
 ls -d /etc/[^a-z]*  #会略去所有以字母开头的文件，不区分大小写
 LANG=C;ls -d /etc/[^a-z]*  #因为语系对正则表达是有影响，所以改为ascii(LANG=C)
+
+源于debian的操作系统会将sh指向/bin/dash而不是/bin/bash
+这在某些情况下会造成问题，如echo -e

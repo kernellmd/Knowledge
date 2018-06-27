@@ -113,6 +113,12 @@ autocmd BufNewFile *.py 0r ~/.vim/vim_template/vim_pyhton_header
 autocmd BufNewFile *.py ks|call FileName()|'s  
 autocmd BufNewFile *.py ks|call CreatedTime()|'s  
   
+"新建shell script自动添加pshell script header
+"auto add shell script header --start  
+autocmd BufNewFile *.sh 0r ~/.vim/vim_template/vim_shell_script_header 
+autocmd BufNewFile *.sh ks|call FileName()|'s  
+autocmd BufNewFile *.sh ks|call CreatedTime()|'s  
+
 fun FileName()  
     if line("$") > 10  
         let l = 10  "这里是字母L 不是数字1   
