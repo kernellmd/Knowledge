@@ -118,3 +118,30 @@ done
 初始值：某個變數在迴圈當中的起始值，直接以類似 i=1 設定好；
 限制值：當變數的值在這個限制值的範圍內，就繼續進行迴圈。例如 i<=100；
 執行步階：每作一次迴圈時，變數的變化量。例如 i=i+1。
+
+
+#debug
+ sh [-nvx] scripts.sh
+選項與參數：
+-n  ：不要執行 script，僅查詢語法的問題；
+-v  ：再執行 sccript 前，先將 scripts 的內容輸出到螢幕上；
+-x  ：將使用到的 script 內容顯示到螢幕上，這是很有用的參數！
+
+範例一：測試 dir_perm.sh 有無語法的問題？
+[dmtsai@study ~]$ sh -n dir_perm.sh
+# 若語法沒有問題，則不會顯示任何資訊！
+
+範例二：將 show_animal.sh 的執行過程全部列出來～
+#加号表示执行的指令
+[dmtsai@study ~]$ sh -x show_animal.sh
++ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/bin
++ export PATH
++ for animal in dog cat elephant
++ echo 'There are dogs.... '
+There are dogs....
++ for animal in dog cat elephant
++ echo 'There are cats.... '
+There are cats....
++ for animal in dog cat elephant
++ echo 'There are elephants.... '
+There are elephants....
