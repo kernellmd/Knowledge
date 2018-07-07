@@ -13,6 +13,9 @@ int main(){
 		else if(strcmp(cmd, "quit") == 0){
 			exit(0);
 		}
+		else if(strcmp(cmd, "print")){
+			printf("This is print cmd!\n");
+		}
 		else{
 			printf("WRONG CMD!\n");
 		}

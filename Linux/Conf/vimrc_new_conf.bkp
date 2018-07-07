@@ -1,0 +1,84 @@
+"Vundle配置
+set nocompatible              " be iMproved, required
+filetype off                  " required
+ 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+ 
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+"支持vim8的maralla/completor.vim的补全代码插件：
+Plugin 'maralla/completor.vim'
+
+"自动格式化工具，安装后运行:Autopep8就可以自动依
+"照pep8的标准自动格式化代码。
+Plugin 'tell-k/vim-autopep8'
+
+"自动补全括号和引号等
+Plugin 'jiangmiao/auto-pairs'
+
+"缩进指示线
+Plugin 'Yggdroot/indentLine'
+ 
+"自动缩进插件
+Plugin 'vim-scripts/indentpython.vim'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"开启comepletor
+let g:completor_python_binary = '/path/to/python/with/jedi/installed'
+
+"设置快捷键F8代替:Autopep8
+autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+
+"set nocompatible "关闭与vi的兼容模式
+set number "显示行号
+set nowrap    "不自动折行
+set showmatch    "显示匹配的括号
+set scrolloff=3        "距离顶部和底部3行"
+set encoding=utf-8  "编码
+set fenc=utf-8      "编码
+set mouse=a        "启用鼠标
+set hlsearch        "搜索高亮
+syntax on    "语法高亮
+
+"为py文件添加下支持pep8风格的配置：
+au BufNewFile,BufRead *.py
+\ set tabstop=4   "tab宽度
+\ set softtabstop=4 
+\ set shiftwidth=4  
+\ set textwidth=79  "行最大宽度
+\ set expandtab       "tab替换为空格键
+\ set autoindent      "自动缩进
+\ set fileformat=unix   "保存文件格式
+
+"一键执行
+map <F5> :call CompileRunGcc()<CR>
+    func! CompileRunGcc()
+        exec "w"
+        if &filetype == 'c'
+            exec "!g++ % -o %<"
+            exec "!time ./%<"
+        elseif &filetype == 'cpp'
+            exec "!g++ % -o %<"
+            exec "!time ./%<"
+        elseif &filetype == 'java'
+            exec "!javac %"
+            exec "!time java %<"
+        elseif &filetype == 'sh'
+            :!time bash %
+        elseif &filetype == 'python'
+            exec "!time python3 %"
+        elseif &filetype == 'html'
+            exec "!firefox % &"
+        elseif &filetype == 'go'
+    "        exec "!go build %<"
+            exec "!time go run %"
+        elseif &filetype == 'mkd'
+            exec "!~/.vim/markdown.pl % > %.html &"
+            exec "!firefox %.html &"
+        endif
+    endfunc

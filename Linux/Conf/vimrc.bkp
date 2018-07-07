@@ -67,11 +67,11 @@ let g:rbpt_loadcmd_toggle = 0
 "自动补全括号引号
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
-"inoremap { {<CR>}<Esc>O
+inoremap { {<CR>}<Esc>O
 autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap ] <c-r>=ClosePair(']')<CR>
-"inoremap } <c-r>=CloseBracket()<CR>
+inoremap } <c-r>=CloseBracket()<CR>
 inoremap " <c-r>=QuoteDelim('"')<CR>
 inoremap ' <c-r>=QuoteDelim("'")<CR>
 
@@ -86,7 +86,7 @@ endf
 function CloseBracket()
  if match(getline(line('.') + 1), '\s*}') < 0
  return "\<CR>}"
-" return "\<Right>}"
+ return "\<Right>}"
  else
  return "\<Esc>j0f}a"
  endif
@@ -105,7 +105,7 @@ function QuoteDelim(char)
 endf
 
 ""使用代码补全功能前，打开文件类型检测
-"filetype plugin indent on
+filetype plugin indent on
 
 "新建python文件自动添加python header
 "auto add pyhton header --start  
