@@ -1,0 +1,2 @@
+进一步Linktable的Callback方式的接口
+将cmd参数整合到调用函数中，不再作为全局变量存在
