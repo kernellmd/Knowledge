@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\C_C++Projects",
+    "\\Images",
+    "\\PythonProjects",
+    "\\PythonProjects\\test1"
   ],
-  "SelectedNode": "\\Frontend",
+  "SelectedNode": "\\PythonProjects\\test1\\sequence_test.py",
   "PreviewInSolutionExplorer": false
 }

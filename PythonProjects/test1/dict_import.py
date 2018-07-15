@@ -1,2 +1,2 @@
-import dict 
-print(dict.values)
+import dict_test 
+print(dict_test.values)
