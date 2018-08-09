@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\PythonProjects\\OOP"
+    "\\PythonProjects",
+    "\\PythonProjects\\OOP",
+    "\\PythonProjects\\OOP\\contacts_app",
+    "\\repos"
   ],
-  "SelectedNode": "\\PythonProjects",
+  "SelectedNode": "\\PythonProjects\\OOP\\contacts_app\\contacts_app_version2.py",
   "PreviewInSolutionExplorer": false
 }
