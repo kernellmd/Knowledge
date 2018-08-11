@@ -6,7 +6,7 @@ class Contact:
     def __init__(self, name, email):
         self.name = name
         self.email = email
-        Contact.all_contact.append(self)
+        Contact.all_contacts.append(self)
 
     
 #创建Supplier类，继承Contact类，但有额外的order方法
