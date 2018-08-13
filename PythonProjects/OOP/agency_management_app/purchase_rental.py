@@ -2,7 +2,7 @@ from apartment_house import get_valid_input
 
 class Purchase:
     def __init__(self, price="", taxes="", **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
         self.price = price
         self.taxes = taxes
 
