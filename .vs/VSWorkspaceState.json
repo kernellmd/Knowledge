@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\PythonProjects",
+    "\\PythonProjects\\OOP"
   ],
-  "SelectedNode": "\\PythonProjects",
+  "SelectedNode": "\\PythonProjects\\OOP\\agency_management_app",
   "PreviewInSolutionExplorer": false
 }
