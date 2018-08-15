@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\PythonProjects",
+    "\\PythonProjects\\OOP",
+    "\\PythonProjects\\OOP\\authentication_and_authorization_system"
   ],
-  "SelectedNode": "\\PythonProjects",
+  "SelectedNode": "\\PythonProjects\\OOP\\authentication_and_authorization_system\\user.py",
   "PreviewInSolutionExplorer": false
 }
