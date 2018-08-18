@@ -15,7 +15,7 @@ class User:
         hash_string = hash_string.encode("utf8")
         return hashlib.sha256(hash_string).hexdigest()
 
-    def chech_password(self, password):
+    def check_password(self, password):
         """Return True if the password is valid for this
         user, false otherwise."""
         encrypted = self._encrypt_pw(password)
