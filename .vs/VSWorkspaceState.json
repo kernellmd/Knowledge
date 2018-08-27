@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\PythonProjects",
-    "\\PythonProjects\\OOP",
-    "\\PythonProjects\\OOP\\server_client_interact"
+    "\\PythonProjects\\OOP"
   ],
-  "SelectedNode": "\\PythonProjects\\OOP\\server_client_interact\\server_test_v2.py",
+  "SelectedNode": "\\PythonProjects\\OOP\\pickle_test.py",
   "PreviewInSolutionExplorer": false
 }
