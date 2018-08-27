@@ -1,3 +1,5 @@
 {
-  "test_program.py::test_encode": true
+  "test_program.py::test_encode": true,
+  "test_program.py::test_encode_character": true,
+  "test_program.py::test_extend_keyword": true
 }
