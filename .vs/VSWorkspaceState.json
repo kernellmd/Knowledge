@@ -3,8 +3,8 @@
     "",
     "\\PythonProjects",
     "\\PythonProjects\\OOP",
-    "\\PythonProjects\\OOP\\vigenere_password_app"
+    "\\PythonProjects\\OOP\\GUI_app"
   ],
-  "SelectedNode": "\\PythonProjects\\OOP\\vigenere_password_app\\test_decode.py",
+  "SelectedNode": "\\PythonProjects\\OOP\\GUI_app\\tkinter_test.py",
   "PreviewInSolutionExplorer": false
 }
