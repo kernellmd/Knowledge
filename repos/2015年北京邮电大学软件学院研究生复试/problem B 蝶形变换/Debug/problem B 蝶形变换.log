@@ -1,5 +1,0 @@
-﻿  正在跳过...(未检测到相关更改)
-  源1.cpp
-  源.cpp
-源1.obj : error LNK2005: _main 已经在 源.obj 中定义
-E:\VS2017\repos\2015年北京邮电大学软件学院研究生复试\Debug\problem B 蝶形变换.exe : fatal error LNK1169: 找到一个或多个多重定义的符号
