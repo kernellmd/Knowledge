@@ -1,0 +1,37 @@
+task groovy << {}
+
+def doubleIt(n) {  //注意def并不是函数返回类型
+    n + n //所以不需要返回语句，函数的最后一个表达式即是返回内容
+}
+
+//我们可以通过数字调用此函数，但是groovy中加法是重载的，我们也可以通过字符串调用
+def foo = 5
+println "doubleIt($foo) = ${doubleIt(foo)}"
+
+foo = "foobar"
+println "doubleIt($foo) = ${doubleIt(foo)}"
+
+println ""
+println ""
+
+
+
+//每当通过至少一个参数调用某个函数时，通常可以省去圆括号
+def noArgs() {
+    println "Called the no args function"
+}
+
+def oneArg(x) {
+    println "Called the 1 arg function with $x"
+    x
+}
+
+def twoArgs(x, y) {
+    println "Called the 2 arg function with $x and $y"
+    x + y
+}
+
+oneArg 500
+twoArgs 200, 300
+//省略括号的嵌套函数调用
+twoArgs oneArg(500), 200

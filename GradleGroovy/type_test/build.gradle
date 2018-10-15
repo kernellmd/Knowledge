@@ -1,13 +1,17 @@
 task groovy << {}
 
-def foo = 6.5
+// Gradle 是一种可选类型语言
+def foo = 6.5  //也可以通过类型来定义变量，使用def更简洁
 
 println "foo has value: $foo"
 
-println "Let's do some math. 5 + 6 = ${5 + 6}"
+//通过创建前面有美元符号的花括号块,可以在字符串中执行简单的groovy代码
+println "Let's do some math. 5 + 6 = ${5 + 6}" 
 
+//通过在任一吧变量上调用.class可以动态了解变量类型
 println "foo is of type: ${foo.class} and has value:$foo"
 
+//动态输入可以将不同类型的值重新赋给某个变量
 foo = "a string"
 
 println "foo is now of type: ${foo.class} and has value: $foo"
