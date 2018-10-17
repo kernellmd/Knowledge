@@ -1,112 +1,102 @@
-" 代码缩进
-""""""""""""""""""""
-set tabstop=4 "设置tab键为4个空格
-set softtabstop=4 "当行之间交错时使用四个空格
-set shiftwidth=4
-set textwidth=79
-"set showmatch
-set list lcs=tab:\|\ 
-"set expandtab
-set autoindent "自动对齐，把当前行的格式自动用到下一行
-set fileformat=unix
-"set ruler  设置右下角状态行
-"set omnifunc=ccomplete  "Complete ctrl+x ctrl+o补全
+"Vundle配置
+set nocompatible              " be iMproved, required
+filetype off                  " required
+ 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+ 
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-" 系统剪贴板
-""""""""""""""""""""
-set clipboard=unnamed
+"支持vim8的maralla/completor.vim的补全代码插件：
+Plugin 'maralla/completor.vim'
 
-""" 修改编码
-""""""""""""""""""""""
-set encoding=utf-8
+"自动格式化工具，安装后运行:Autopep8就可以自动依
+"照pep8的标准自动格式化代码。
+Plugin 'tell-k/vim-autopep8'
 
-"" 修改配色
-"""""""""""""""""""""
-colorscheme elflord
+"自动补全括号和引号等
+Plugin 'jiangmiao/auto-pairs'
 
-"" 显示行号
-"""""""""""""""""""""
-set number
+"缩进指示线
+Plugin 'Yggdroot/indentLine'
+ 
+"自动缩进插件
+Plugin 'vim-scripts/indentpython.vim'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
-""去掉有关vi一致性模式，避免以前版本的一些bug和局限
-set nocompatible
+"开启comepletor
+let g:completor_python_binary = '/path/to/python/with/jedi/installed'
 
-"" 语法高亮
-"""""""""""""""""""""
-syntax on
-set hlsearch
-let python_highlight_all = 1
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
+"设置快捷键F8代替:Autopep8
+autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 
-" 括号匹配高亮
-"""""""""""""""""
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 40
-let g:rbpt_loadcmd_toggle = 0
+"set nocompatible "关闭与vi的兼容模式
+set number "显示行号
+set nowrap    "不自动折行
+set showmatch    "显示匹配的括号
+set scrolloff=3        "距离顶部和底部3行"
+set encoding=utf-8  "编码
+set fenc=utf-8      "编码
+set mouse=a        "启用鼠标
+set clipboard=unamed  "系统剪贴板
+set hlsearch        "搜索高亮
 
-"自动补全括号引号
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {<CR>}<Esc>O
-autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
-inoremap ) <c-r>=ClosePair(')')<CR>
-inoremap ] <c-r>=ClosePair(']')<CR>
-inoremap } <c-r>=CloseBracket()<CR>
-inoremap " <c-r>=QuoteDelim('"')<CR>
-inoremap ' <c-r>=QuoteDelim("'")<CR>
+set tabstop=4   "tab宽度
+set softtabstop=4 
+set shiftwidth=4  
+set expandtab       "tab替换为空格键
+set autoindent      "自动缩进
 
-function ClosePair(char)
- if getline('.')[col('.') - 1] == a:char
- return "\<Right>"
- else
- return a:char
- endif
-endf
+syntax on    "语法高亮
 
-function CloseBracket()
- if match(getline(line('.') + 1), '\s*}') < 0
- return "\<CR>}"
- return "\<Right>}"
- else
- return "\<Esc>j0f}a"
- endif
-endf
+"代码折叠
+"使用zc按键来创建折叠，使用za来打开或者关闭折叠
+set foldmethod=indent
+set foldlevel=99
 
-function QuoteDelim(char)
- let line = getline('.')
- let col = col('.')
- if line[col - 2] == "\\"
- return a:char
- elseif line[col - 1] == a:char
- return "\<Right>"
- else
- return a:char.a:char."\<Esc>i"
- endif
-endf
+"为py文件添加下支持pep8风格的配置：
+au BufNewFile,BufRead *.py
+\ set tabstop=4   "tab宽度
+\ set softtabstop=4 
+\ set shiftwidth=4  
+\ set textwidth=79  "行最大宽度
+\ set expandtab       "tab替换为空格键
+\ set autoindent      "自动缩进
+\ set fileformat=unix   "保存文件格式
 
-""使用代码补全功能前，打开文件类型检测
-filetype plugin indent on
+"一键执行
+map <F5> :call CompileRunGcc()<CR>
+    func! CompileRunGcc()
+        exec "w"
+        if &filetype == 'c'
+            exec "!g++ % -o %<"
+            exec "!time ./%<"
+        elseif &filetype == 'cpp'
+            exec "!g++ % -o %<"
+            exec "!time ./%<"
+        elseif &filetype == 'java'
+            exec "!javac %"
+            exec "!time java %<"
+        elseif &filetype == 'sh'
+            :!time bash %
+        elseif &filetype == 'python'
+            exec "!time python3 %"
+        elseif &filetype == 'html'
+            exec "!firefox % &"
+        elseif &filetype == 'go'
+    "        exec "!go build %<"
+            exec "!time go run %"
+        elseif &filetype == 'mkd'
+            exec "!~/.vim/markdown.pl % > %.html &"
+            exec "!firefox %.html &"
+        endif
+    endfunc
 
+ 
 "新建python文件自动添加python header
 "auto add pyhton header --start  
 autocmd BufNewFile *.py 0r ~/.vim/vim_template/vim_pyhton_header  
