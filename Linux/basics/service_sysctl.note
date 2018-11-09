@@ -1,0 +1,210 @@
+#從 CentOS 7.x 以後，Red Hat 系列的 distribution 
+#放棄沿用多年的 System V 開機啟動服務的流程，就
+#是前一小節提到的 init 啟動腳本的方法， 改用 systemd 
+#這個啟動服務管理機制:
+#舊的 init 啟動腳本是『一項一項任務依序啟動』的模
+#式，因此不相依的服務也是得要一個一個的等待。但目前
+#我們的硬體主機系統與作業系統幾乎都支援多核心架構了，
+#沒道理未相依的服務不能同時啟動啊！systemd 就是可以
+#讓所有的服務同時啟動，因此你會發現到，系統啟動的速度變快了！
+#systemd 全部就是僅有一隻 systemd 服務搭配 systemctl 指
+#令來處理，無須其他額外的指令來支援。不像 systemV 還
+#要 init, chkconfig, service... 等等指令。 此外， systemd 由
+#於常駐記憶體，因此任何要求 (on-demand) 都可以立即處理後續
+#的 daemon 啟動的任務。
+
+#通过systemctl管理单一服务
+systemctl [command] [unit]
+command 主要有：
+start     ：立刻啟動後面接的 unit
+stop      ：立刻關閉後面接的 unit
+restart   ：立刻關閉後啟動後面接的 unit，亦即執行 stop 再 start 的意思
+reload    ：不關閉後面接的 unit 的情況下，重新載入設定檔，讓設定生效
+enable    ：設定下次開機時，後面接的 unit 會被啟動
+disable   ：設定下次開機時，後面接的 unit 不會被啟動
+status    ：目前後面接的這個 unit 的狀態，會列出有沒有正在執行、開機預設執行否、登錄等資訊等！
+is-active ：目前有沒有正在運作中
+is-enabled：開機時有沒有預設要啟用這個 unit
+eg: systemctl status cron.service
+範例一：看看目前 atd 這個服務的狀態為何？
+[root@study ~]# systemctl status atd.service
+atd.service - Job spooling tools
+   Loaded: loaded (/usr/lib/systemd/system/atd.service; enabled)
+   Active: active (running) since Mon 2015-08-10 19:17:09 CST; 5h 42min ago
+ Main PID: 1350 (atd)
+   CGroup: /system.slice/atd.service
+           └─1350 /usr/sbin/atd -f
+
+Aug 10 19:17:09 study.centos.vbird systemd[1]: Started Job spooling tools.
+# 重點在第二、三行喔～
+# Loaded：這行在說明，開機的時候這個 unit 會不會啟動，enabled 為開機啟動，disabled 開機不會啟動
+# Active：現在這個 unit 的狀態是正在執行 (running) 或沒有執行 (dead)
+# 後面幾行則是說明這個 unit 程序的 PID 狀態以及最後一行顯示這個服務的登錄檔資訊！
+# 登錄檔資訊格式為：『時間』 『訊息發送主機』 『哪一個服務的訊息』 『實際訊息內容』
+# 所以上面的顯示訊息是：這個 atd 預設開機就啟動，而且現在正在運作的意思！
+
+好！再回到 systemctl status atd.service 的第三行，不是有
+個 Active 的 daemon 現在狀態 嗎？除了 running 跟 dead 之
+外， 有沒有其他的狀態呢？有的～基本上有幾個常見的狀態：
+active (running)：正有一隻或多隻程序正在系統中執行的意思，舉例來說，正在執行
+中的 vsftpd 就是這種模式。
+
+active (exited)：僅執行一次就正常結束的服務，目前
+並沒有任何程序在系統中執行。 舉例來說，開機或者是掛載時才會進行一次的 quotaon 功
+能，就是這種模式！ quotaon 不須一直執行～只須執行一次之後，就交給檔案系統去自行
+處理囉！通常用 bash shell 寫的小型服務，大多是屬於這種類型 (無須常駐記憶體)。
+
+active (waiting)：正在執行當中，不過還再等待其他的事件才能繼續處理。舉例來說，
+列印的佇列相關服務就是這種狀態！ 雖然正在啟動中，不過，也需要真的有佇列進
+來 (列印工作) 這樣他才會繼續喚醒印表機服務來進行下一步列印的功能。
+
+inactive：這個服務目前沒有運作的意思。
+
+既然 daemon 目前的狀態就有這麼多種了，那麼 daemon 的預設狀態有沒有
+可能除了 enable/disable 之外，還有其他的情況呢？當然有！
+
+enabled：這個 daemon 將在開機時被執行
+
+disabled：這個 daemon 在開機時不會被執行
+
+static：這個 daemon 不可以自己啟動 (enable 不可)，不過可能會被其他
+的 enabled 的服務來喚醒 (相依屬性的服務)
+
+mask：這個 daemon 無論如何都無法被啟動！因為已經被強制註銷 (非刪除)。
+可透過 systemctl unmask 方式改回原本狀態
+
+#通过systemctl管理所有服务
+ systemctl [command] [--type=TYPE] [--all]
+command:
+    list-units      ：依據 unit 列出目前有啟動的 unit。若加上 --all 才會列出沒啟動的。
+    list-unit-files ：依據 /usr/lib/systemd/system/ 內的檔案，將所有檔案列表說明。
+--type=TYPE：就是之前提到的 unit type，主要有 service, socket, target 等
+
+範例一：列出系統上面有啟動的 unit
+[root@study ~]# systemctl
+UNIT                      LOAD   ACTIVE SUB       DESCRIPTION
+proc-sys-fs-binfmt_mis... loaded active waiting   Arbitrary Executable File Formats File System
+sys-devices-pc...:0:1:... loaded active plugged   QEMU_HARDDISK
+sys-devices-pc...0:1-0... loaded active plugged   QEMU_HARDDISK
+sys-devices-pc...0:0-1... loaded active plugged   QEMU_DVD-ROM
+.....(中間省略).....
+vsftpd.service            loaded active running   Vsftpd ftp daemon
+.....(中間省略).....
+cups.socket               loaded failed failed    CUPS Printing Service Sockets
+.....(中間省略).....
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+
+141 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use 'systemctl list-unit-files'.
+# 列出的項目中，主要的意義是：
+# UNIT   ：項目的名稱，包括各個 unit 的類別 (看副檔名)
+# LOAD   ：開機時是否會被載入，預設 systemctl 顯示的是有載入的項目而已喔！
+# ACTIVE ：目前的狀態，須與後續的 SUB 搭配！就是我們用 systemctl status 觀察時，active 的項目！
+# DESCRIPTION ：詳細描述囉
+# cups 比較有趣，因為剛剛被我們玩過，所以 ACTIVE 竟然是 failed 的喔！被玩死了！ ^_^
+# 另外，systemctl 都不加參數，其實預設就是 list-units 的意思！
+
+範例二：列出所有已經安裝的 unit 有哪些？
+[root@study ~]# systemctl list-unit-files
+UNIT FILE                                   STATE
+proc-sys-fs-binfmt_misc.automount           static
+dev-hugepages.mount                         static
+dev-mqueue.mount                            static
+proc-fs-nfsd.mount                          static
+.....(中間省略).....
+systemd-tmpfiles-clean.timer                static
+
+336 unit files listed.
+
+範例一：查詢系統上是否有以 cpu 為名的服務？
+[root@study ~]# systemctl list-units --type=service --all | grep cpu
+cpupower.service  loaded inactive dead    Configure CPU power related settings
+# 確實有喔！可以改變 CPU 電源管理機制的服務哩！
+
+#通过systemctl管理不同的操作环境（target unit）
+透過上個小節我們知道系統上所有的 systemd 的 unit 觀察的
+方式，那麼可否列出跟操作界面比較有關的 target 項目呢？ 很簡單啊！就這樣搞一下：
+ systemctl list-units --type=target --all
+
+ systemctl [command] [unit.target]
+選項與參數：
+command:
+    get-default ：取得目前的 target
+    set-default ：設定後面接的 target 成為預設的操作模式
+    isolate     ：切換到後面接的模式
+範例一：我們的測試機器預設是圖形界面，先觀察是否真為圖形模式，再將預設模式轉為文字界面
+[root@study ~]# systemctl get-default 
+graphical.target 
+
+[root@study ~]# systemctl set-default multi-user.target
+[root@study ~]# systemctl get-default 
+multi-user.target
+
+範例二：在不重新開機的情況下，將目前的操作環境改為純文字模式，關掉圖形界面
+[root@study ~]# systemctl isolate multi-user.target
+
+範例三：若需要重新取得圖形界面呢？
+[root@study ~]# systemctl isolate graphical.target
+
+#注意：
+#改變 graphical.target 以及 multi-user.target 是透過 isolate 來處理
+#的！鳥哥剛剛接觸到 systemd 的時候，在 multi-user.target 環境下轉
+#成 graphical.target 時， 可以透過 systemctl start graphical.target 
+#喔！然後鳥哥就以為關閉圖形界面即可回到 multi-user.target 的！但使
+#用 systemctl stop graphical.target 卻完全不理鳥哥～這才發現錯了
+#...在 service 部份用 start/stop/restart 才對，在 target 項目則請使
+#用 isolate (隔離不同的操作模式) 才對！
+
+# systemd 也提供了數個簡單的指令給我們切換操作模式之用喔！ 大致上如下所示：
+systemctl poweroff  系統關機
+systemctl reboot    重新開機
+systemctl suspend   進入暫停模式
+systemctl hibernate 進入休眠模式
+systemctl rescue    強制進入救援模式
+systemctl emergency 強制進入緊急救援模式
+關機、重新開機、救援與緊急模式這沒啥問題，那麼什麼是暫停與休眠模式呢？
+suspend：暫停模式會將系統的狀態資料保存到記憶體中，然後關閉掉大部分的系統硬
+體，當然，並沒有實際關機喔！ 當使用者按下喚醒機器的按鈕，系統資料會重記憶體
+中回復，然後重新驅動被大部分關閉的硬體，就開始正常運作！喚醒的速度較快。
+
+hibernate：休眠模式則是將系統狀態保存到硬碟當中，保存完畢後，將電腦關機。
+當使用者嘗試喚醒系統時，系統會開始正常運作， 然後將保存在硬碟中的系統狀態恢
+復回來。因為資料是由硬碟讀出，因此喚醒的效能與你的硬碟速度有關。
+
+#通过systemctl分析各服务之间的相依性
+#通缩systemctl分析sockets服务
+ systemd 裡頭有很多的本機會用到的 socket 服務，裡頭可能會產生
+很多的 socket file ，查看这些文件的位置，使用如下命令：
+systemctl list-sockets
+#查看网络服务与端口号的对应关系
+#查看 /etc/services 文档即可
+# 這個檔案的內容是以底下的方式來編排的：
+# <daemon name>   <port/封包協定>   <該服務的說明>
+# 注意：
+請特別注意！雖然有的時候你可以藉由修改 /etc/services 來更改一
+個服務的埠號，不過並不建議如此做， 因為很有可能會造成一些協定的
+錯誤情況！這裡特此說明一番呦！(除非你要架設一個地下網站，否則
+的話，使用 /etc/services 原先的設定就好啦！)
+netstat -tlunp  #追踪网络端口命令
+
+#切换终端
+#Ubuntu 18.04
+ctrl + alt + f1 ... f6 分别对应tty1到6
+其中tty1为图形终端
+
+#一般情况如下
+Ubuntu 系统与 CentOS 系统在终端操作上的区别
+Ubuntu 系统切换到字符界面： Ctrl+Alt+Fn（n=1…6）；切换回图形界面： Ctrl+Alt+F7 或 Alt+F7。
+CentOS 系统切换到字符界面： Ctrl+Alt+Fn（n=2…6）；切换回图形界面： Ctrl+Alt+F1 或 Alt+F1
+
+#切换运行级别，注意和切换终端区别
+systemctl isolate multi-user.target #切换到第3运行级别
+或systemctl isolate runlevel3.target
+
+systemctl isolate graphical.target #切换到第5运行级别
+或systemctl isolate runlevel5.target
+
+systemtcl get-default #获取当前系统默认的启动级别
+systemtcl set-default xxx #设置默认的启动级别

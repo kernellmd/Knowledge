@@ -1,5 +1,8 @@
 #note
 
+rar x FileName.rar  #解压rar压缩文档
+rar a FileName.rar DirName  #压缩文件为rar文档，注意要为文件名加rar后缀
+
 file xxx  #命令查看xxx文件类型
 du -sh xxx #查看xxx文件的大小
 
