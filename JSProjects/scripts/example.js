@@ -9,11 +9,18 @@ var message2
 var bool_test = null;
 var testAsBoolean = Boolean(bool_test);
 var result = Number.MAX_VALUE + Number.MAX_VALUE;
-
+var num = parseInt("070");
+var num1 = parseInt("070", 8);
+var num2 = parseInt("0xA");
+var num3 = parseInt("AF", 16);
 
 function sayHi() {
-    alert(Number.NEGATIVE_INFINITY);
-    alert(Number.POSITIVE_INFINITY);
+    alert(num);
+    alert(num1);
+    alert(num2);
+    alert(num3);
+    //alert(Number.NEGATIVE_INFINITY);
+    //alert(Number.POSITIVE_INFINITY);
     //alert(isFinite(result));
     //alert(Number.MAX_VALUE);
     //alert(Number.MIN_VALUE);
