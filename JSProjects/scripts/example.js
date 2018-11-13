@@ -30,4 +30,4 @@ function sayHi() {
     //alert(typeof sayHi);  //"function"
 }
 
-window.onload = sayHi();
+//window.onload = sayHi();
