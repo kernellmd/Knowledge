@@ -1,9 +1,0 @@
-[
-  "vigenere_password_app/test_combine_character.py::test_combine_character",
-  "vigenere_password_app/test_decode.py::test_separate_character",
-  "vigenere_password_app/test_decode.py::test_decode",
-  "vigenere_password_app/test_encode_keyword_method.py::test_extend_keyword",
-  "vigenere_password_app/test_program.py::test_encode_character",
-  "vigenere_password_app/test_space_and_lowercase.py::test_encode_spaces",
-  "vigenere_password_app/test_space_and_lowercase.py::test_encode_lowercase"
-]
